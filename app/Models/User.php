@@ -17,11 +17,17 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+protected $fillable = [
+    'name',
+    'email',
+    'password',
+    'company',
+    'street',
+    'house_number',
+    'zip_code',
+    'city',
+    'country',
+];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,4 +51,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+public function employees()
+{
+    // Wir nutzen den kompletten Pfad zur Klasse
+    return $this->hasMany(\App\Models\Employee::class);
+}
+public function positions() {
+    return $this->hasMany(Position::class);
+}
 }

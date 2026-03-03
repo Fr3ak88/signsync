@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -46,14 +46,21 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
+protected function validator(array $data)
+{
+    return Validator::make($data, [
+        'company'      => ['required', 'string', 'max:255'], // NUR Regeln hier!
+        'first_name'   => ['required', 'string', 'max:255'],
+        'last_name'    => ['required', 'string', 'max:255'],
+        'street'       => ['required', 'string', 'max:255'],
+        'house_number' => ['required', 'string', 'max:20'],
+        'zip_code'     => ['required', 'string', 'max:10'],
+        'city'         => ['required', 'string', 'max:255'],
+        'country'      => ['required', 'string'],
+        'email'        => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password'     => ['required', 'string', 'min:8', 'confirmed'],
+    ]);
+}
 
     /**
      * Create a new user instance after a valid registration.
@@ -61,12 +68,18 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
+protected function create(array $data)
+{
+return User::create([
+        'company'      => $data['company'],
+        'name'         => $data['first_name'] . ' ' . $data['last_name'],
+        'street'       => $data['street'],
+        'house_number' => $data['house_number'],
+        'zip_code'     => $data['zip_code'],
+        'city'         => $data['city'],
+        'country'      => $data['country'],
+        'email'        => $data['email'],
+        'password'     => Hash::make($data['password']),
+    ]);
+}
 }
