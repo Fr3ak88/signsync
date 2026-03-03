@@ -1,53 +1,55 @@
 <?php
 
-Route::get('/hallo', function () {
-    return "Die Web.php wird gelesen!";
-});
-
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\ZeiteintragController; // Musst du gleich noch erstellen
 
 // 1. Landing Page
 Route::get('/', function () {
     return view('welcome');
 });
 
-// 2. Auth-System (MUSS vor dem Redirect stehen)
+// 2. Auth-System
 Auth::routes();
 
 // 3. Sicherheits-Redirect
 Route::redirect('/home', '/dashboard');
 
-// 4. Geschützter Bereich
+// 4. Geschützter Bereich (Nur für angemeldete Nutzer)
 Route::middleware(['auth'])->group(function () {
     
     // Dashboard
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard')->middleware('auth');
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
-    // Mitarbeiter-Verwaltung (Einheitliche Schreibweise!)
-    Route::get('/admin/employees', [EmployeeController::class, 'index'])->middleware('auth');
-    Route::get('/admin/employees/create', [EmployeeController::class, 'create'])->middleware('auth');
-    Route::post('/admin/employees', [EmployeeController::class, 'store'])->middleware('auth');
-    Route::get('/admin/employees/create', [EmployeeController::class, 'create'])->name('admin.employees.create');
-    // Bearbeiten (Formular anzeigen)
-    Route::get('/admin/employees/{id}/edit', [EmployeeController::class, 'edit'])->middleware('auth');
+    // --- ADMIN BEREICH (Mitarbeiter & Positionen) ---
+    Route::prefix('admin')->group(function () {
+        // Mitarbeiter
+        Route::get('/employees', [EmployeeController::class, 'index']);
+        Route::get('/employees/create', [EmployeeController::class, 'create'])->name('admin.employees.create');
+        Route::post('/employees', [EmployeeController::class, 'store']);
+        Route::get('/employees/{id}/edit', [EmployeeController::class, 'edit']);
+        Route::put('/employees/{id}', [EmployeeController::class, 'update']);
+        Route::delete('/employees/{id}', [EmployeeController::class, 'destroy']);
 
-    // Update (Speichern der Änderungen)
-    Route::put('/admin/employees/{id}', [EmployeeController::class, 'update'])->middleware('auth');
+        // Positionen
+        Route::get('/positions', [PositionController::class, 'index']);
+        Route::post('/positions', [PositionController::class, 'store']);
+        Route::delete('/positions/{id}', [PositionController::class, 'destroy']);
+    });
 
-    // Löschen
-    Route::delete('/admin/employees/{id}', [EmployeeController::class, 'destroy'])->middleware('auth');
+    // --- MITARBEITER BEREICH (Zeiteinträge) ---
+    // Hier sind die Routen für den neuen Ordner "zeiteintraege"
+    Route::get('/zeiteintraege', [ZeiteintragController::class, 'index'])->name('zeiteintraege.index');
+    Route::get('/zeiteintraege/create', [ZeiteintragController::class, 'create'])->name('zeiteintraege.create');
+    Route::post('/zeiteintraege', [ZeiteintragController::class, 'store'])->name('zeiteintraege.store');
+    Route::delete('/zeiteintraege/{id}', [ZeiteintragController::class, 'destroy'])->name('zeiteintraege.destroy');
 
-    // Debug-Test
-    Route::get('/debug-test', function () {
-        return 'Routen werden geladen!';
-    })->name('debug.test');
 });
 
-//5. Positionen Bezeichnungen
-Route::get('/admin/positions', [PositionController::class, 'index'])->middleware('auth');
-Route::post('/admin/positions', [PositionController::class, 'store'])->middleware('auth');
-Route::delete('/admin/positions/{id}', [PositionController::class, 'destroy'])->middleware('auth');
+// Debug-Test
+Route::get('/hallo', function () {
+    return "Die Web.php wird gelesen!";
+});
