@@ -13,7 +13,6 @@ use App\Http\Controllers\WorktimeController;
 use App\Http\Controllers\ArbeitsnachweisController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\MollieWebhookController;
-use App\Http\Controllers\ZeiteintragController; 
 
 
 // 1. Landing Page
