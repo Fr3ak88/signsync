@@ -187,7 +187,7 @@
                                 }
 
                                 function calculateDuration() {
-                                    if (!startInput.value) {
+                                    if (!startInput.value || (!endInput.value && !timerInterval)) {
                                         displayDuration.value = '-';
                                         return;
                                     }
@@ -306,16 +306,17 @@
                                         displayEnd.value = formatLocal(endInput.value);
                                     }
                                     updateStatus('Beendet', 'bi-check-circle-fill text-danger', 'danger');
+                                    calculateDuration(); // Nur bei beendetem Timer berechnen
                                 } else if (startInput.value) {
                                     pauseBtn.disabled = false;
                                     stopBtn.disabled = false;
                                     saveBtn.disabled = true;
                                     updateStatus('Läuft...', 'bi-circle-fill text-success', 'success');
                                     timerInterval = setInterval(calculateDuration, 1000);
+                                    calculateDuration(); // Sofort berechnen bei laufendem Timer
                                 }
 
-                                calculateDuration();
-                                updatePauseDisplay();
+                                // Nicht automatisch berechnen bei alten Formulardaten
                             });
                         </script>
                     @endpush
