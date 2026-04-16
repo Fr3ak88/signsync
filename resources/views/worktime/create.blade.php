@@ -193,8 +193,17 @@
                                     }
 
                                     const start = new Date(startInput.value);
-                                    const end = endInput.value ? new Date(endInput.value) : new Date();
-                                    const totalMinutes = Math.max(0, Math.round((end - start) / 60000));
+                                    const now = endInput.value ? new Date(endInput.value) : new Date();
+                                    
+                                    let totalMinutes = 0;
+                                    if (isPaused && pauseStart) {
+                                        // Während Pause: Zeit bis Pause-Start
+                                        totalMinutes = Math.max(0, Math.round((pauseStart - start) / 60000));
+                                    } else {
+                                        // Normal oder nach Pause-Ende: Zeit bis jetzt
+                                        totalMinutes = Math.max(0, Math.round((now - start) / 60000));
+                                    }
+                                    
                                     const pausedMinutes = Number(pauseInput.value || 0);
                                     const nettoMinutes = Math.max(0, totalMinutes - pausedMinutes);
 
