@@ -141,6 +141,7 @@ Route::middleware(['auth'])->group(function () {
 }); // Ende Middleware 'auth'
 
 
+
 Route::redirect('/home', '/dashboard');
 
 // 4. Geschützter Bereich (Nur für angemeldete Nutzer)
@@ -178,4 +179,3 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/hallo', function () {
     return "Die Web.php wird gelesen!";
 });
-
