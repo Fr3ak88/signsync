@@ -60,43 +60,73 @@
 
                         <div class="mb-4">
                             <label class="form-label fw-bold small text-uppercase text-muted">Zeiterfassung</label>
-                            <div class="d-flex gap-2 flex-wrap mb-3">
-                                <button type="button" id="timer-start-btn" class="btn btn-success py-2 fw-bold text-white shadow-sm">
-                                    <i class="bi bi-play-fill me-1"></i> Start
+                            
+                            <!-- Status-Anzeige -->
+                            <div class="text-center mb-3">
+                                <div id="timer-status" class="badge bg-secondary fs-6 px-3 py-2">
+                                    <i class="bi bi-circle-fill me-2"></i>Bereit zum Start
+                                </div>
+                            </div>
+                            
+                            <!-- Button-Gruppe zentriert -->
+                            <div class="d-flex justify-content-center gap-3 mb-4">
+                                <button type="button" id="timer-start-btn" class="btn btn-success btn-lg px-4 py-3 fw-bold shadow-lg">
+                                    <i class="bi bi-play-circle-fill fs-4 me-2"></i>
+                                    <span class="d-block">Start</span>
                                 </button>
-                                <button type="button" id="timer-pause-btn" class="btn btn-warning py-2 fw-bold text-white shadow-sm" disabled>
-                                    <i class="bi bi-pause-fill me-1"></i> Pause
+                                <button type="button" id="timer-pause-btn" class="btn btn-warning btn-lg px-4 py-3 fw-bold shadow-lg" disabled>
+                                    <i class="bi bi-pause-circle-fill fs-4 me-2"></i>
+                                    <span class="d-block">Pause</span>
                                 </button>
-                                <button type="button" id="timer-stop-btn" class="btn btn-danger py-2 fw-bold text-white shadow-sm" disabled>
-                                    <i class="bi bi-stop-fill me-1"></i> Stop
+                                <button type="button" id="timer-stop-btn" class="btn btn-danger btn-lg px-4 py-3 fw-bold shadow-lg" disabled>
+                                    <i class="bi bi-stop-circle-fill fs-4 me-2"></i>
+                                    <span class="d-block">Stop</span>
                                 </button>
                             </div>
 
-                            <div class="row gy-3">
-                                <div class="col-md-4">
-                                    <label class="form-label small text-uppercase text-muted">Gestartet</label>
-                                    <input type="text" id="display-start" class="form-control bg-white" value="{{ old('start_zeit') ? old('start_zeit') : 'Noch nicht gestartet' }}" readonly>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label small text-uppercase text-muted">Beendet</label>
-                                    <input type="text" id="display-end" class="form-control bg-white" value="{{ old('ende_zeit') ? old('ende_zeit') : 'Noch nicht gestoppt' }}" readonly>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label small text-uppercase text-muted">Pause</label>
-                                    <input type="text" id="display-pause" class="form-control bg-white" value="{{ old('pause_minuten', 0) }} Min" readonly>
-                                </div>
-                            </div>
+                            <!-- Anzeigen in einer Karte -->
+                            <div class="card bg-light border-0 shadow-sm">
+                                <div class="card-body p-4">
+                                    <div class="row g-3 text-center">
+                                        <div class="col-md-4">
+                                            <div class="p-3 bg-white rounded shadow-sm">
+                                                <i class="bi bi-play-circle text-success fs-3 mb-2"></i>
+                                                <label class="form-label small text-uppercase text-muted fw-bold mb-1">Gestartet</label>
+                                                <input type="text" id="display-start" class="form-control bg-white border-0 text-center fw-bold" value="{{ old('start_zeit') ? old('start_zeit') : 'Noch nicht gestartet' }}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="p-3 bg-white rounded shadow-sm">
+                                                <i class="bi bi-stop-circle text-danger fs-3 mb-2"></i>
+                                                <label class="form-label small text-uppercase text-muted fw-bold mb-1">Beendet</label>
+                                                <input type="text" id="display-end" class="form-control bg-white border-0 text-center fw-bold" value="{{ old('ende_zeit') ? old('ende_zeit') : 'Noch nicht gestoppt' }}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="p-3 bg-white rounded shadow-sm">
+                                                <i class="bi bi-pause-circle text-warning fs-3 mb-2"></i>
+                                                <label class="form-label small text-uppercase text-muted fw-bold mb-1">Pause</label>
+                                                <input type="text" id="display-pause" class="form-control bg-white border-0 text-center fw-bold" value="{{ old('pause_minuten', 0) }} Min" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                            <div class="mt-3">
-                                <label class="form-label small text-uppercase text-muted">Laufzeit</label>
-                                <input type="text" id="display-duration" class="form-control bg-white" value="-" readonly>
+                                    <!-- Laufzeit-Anzeige prominent -->
+                                    <div class="mt-4 text-center">
+                                        <div class="p-3 bg-primary text-white rounded shadow-sm">
+                                            <i class="bi bi-clock-history fs-4 mb-2"></i>
+                                            <label class="form-label text-white fw-bold mb-1">GESAMTLAUFZEIT</label>
+                                            <input type="text" id="display-duration" class="form-control bg-primary text-white border-0 text-center fw-bold fs-5" value="-" readonly>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             @error('start_zeit')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                <div class="invalid-feedback d-block text-center mt-2">{{ $message }}</div>
                             @enderror
                             @error('ende_zeit')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                <div class="invalid-feedback d-block text-center mt-2">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -130,10 +160,16 @@
                                 const displayEnd = document.getElementById('display-end');
                                 const displayPause = document.getElementById('display-pause');
                                 const displayDuration = document.getElementById('display-duration');
+                                const statusBadge = document.getElementById('timer-status');
 
                                 let pauseStart = null;
                                 let isPaused = false;
                                 let timerInterval = null;
+
+                                function updateStatus(status, icon, color) {
+                                    statusBadge.innerHTML = `<i class="bi ${icon} me-2"></i>${status}`;
+                                    statusBadge.className = `badge bg-${color} fs-6 px-3 py-2`;
+                                }
 
                                 function formatLocal(value) {
                                     const date = new Date(value);
@@ -187,6 +223,7 @@
                                     stopBtn.disabled = false;
                                     saveBtn.disabled = true;
 
+                                    updateStatus('Läuft...', 'bi-circle-fill text-success', 'success');
                                     timerInterval = setInterval(calculateDuration, 1000);
                                 }
 
@@ -199,20 +236,22 @@
                                     if (!isPaused) {
                                         pauseStart = now;
                                         isPaused = true;
-                                        pauseBtn.textContent = 'Pause beenden';
+                                        pauseBtn.querySelector('span').textContent = 'Pause beenden';
                                         pauseBtn.classList.remove('btn-warning');
                                         pauseBtn.classList.add('btn-success');
-                                        pauseBtn.querySelector('i').className = 'bi bi-play-fill me-1';
+                                        pauseBtn.querySelector('i').className = 'bi bi-play-circle-fill fs-4 me-2';
+                                        updateStatus('Pausiert', 'bi-pause-circle-fill text-warning', 'warning');
                                     } else {
                                         const diff = Math.round((now - pauseStart) / 60000);
                                         pauseInput.value = String(Number(pauseInput.value || 0) + diff);
                                         isPaused = false;
                                         pauseStart = null;
-                                        pauseBtn.textContent = 'Pause';
+                                        pauseBtn.querySelector('span').textContent = 'Pause';
                                         pauseBtn.classList.remove('btn-success');
                                         pauseBtn.classList.add('btn-warning');
-                                        pauseBtn.querySelector('i').className = 'bi bi-pause-fill me-1';
+                                        pauseBtn.querySelector('i').className = 'bi bi-pause-circle-fill fs-4 me-2';
                                         updatePauseDisplay();
+                                        updateStatus('Läuft...', 'bi-circle-fill text-success', 'success');
                                     }
 
                                     calculateDuration();
@@ -229,10 +268,10 @@
                                         pauseInput.value = String(Number(pauseInput.value || 0) + diff);
                                         isPaused = false;
                                         pauseStart = null;
-                                        pauseBtn.textContent = 'Pause';
+                                        pauseBtn.querySelector('span').textContent = 'Pause';
                                         pauseBtn.classList.remove('btn-success');
                                         pauseBtn.classList.add('btn-warning');
-                                        pauseBtn.querySelector('i').className = 'bi bi-pause-fill me-1';
+                                        pauseBtn.querySelector('i').className = 'bi bi-pause-circle-fill fs-4 me-2';
                                         updatePauseDisplay();
                                     }
 
@@ -245,6 +284,7 @@
                                     stopBtn.disabled = true;
                                     saveBtn.disabled = false;
 
+                                    updateStatus('Beendet', 'bi-check-circle-fill text-danger', 'danger');
                                     clearInterval(timerInterval);
                                 }
 
@@ -265,10 +305,12 @@
                                     if (displayEnd.value === endInput.value) {
                                         displayEnd.value = formatLocal(endInput.value);
                                     }
+                                    updateStatus('Beendet', 'bi-check-circle-fill text-danger', 'danger');
                                 } else if (startInput.value) {
                                     pauseBtn.disabled = false;
                                     stopBtn.disabled = false;
                                     saveBtn.disabled = true;
+                                    updateStatus('Läuft...', 'bi-circle-fill text-success', 'success');
                                     timerInterval = setInterval(calculateDuration, 1000);
                                 }
 
