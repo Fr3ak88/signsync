@@ -41,9 +41,9 @@
                         <input type="hidden" name="typ" value="arbeit">
                         {{-- schueler_id bleibt bei interner Arbeit null --}}
                         <input type="hidden" name="schueler_id" value="">
-                        <input type="hidden" name="start_zeit" id="start_zeit" value="{{ old('start_zeit') }}">
-                        <input type="hidden" name="ende_zeit" id="ende_zeit" value="{{ old('ende_zeit') }}">
-                        <input type="hidden" name="pause_minuten" id="pause_minuten" value="{{ old('pause_minuten', 0) }}">
+                        <input type="hidden" name="start_zeit" id="start_zeit" value="">
+                        <input type="hidden" name="ende_zeit" id="ende_zeit" value="">
+                        <input type="hidden" name="pause_minuten" id="pause_minuten" value="0">
 
                         <div class="mb-4">
                             <label class="form-label fw-bold">Art der Erfassung</label>
@@ -92,21 +92,21 @@
                                             <div class="p-3 bg-white rounded shadow-sm">
                                                 <i class="bi bi-play-circle text-success fs-3 mb-2"></i>
                                                 <label class="form-label small text-uppercase text-muted fw-bold mb-1">Gestartet</label>
-                                                <input type="text" id="display-start" class="form-control bg-white border-0 text-center fw-bold" value="{{ old('start_zeit') ? old('start_zeit') : 'Noch nicht gestartet' }}" readonly>
+                                                <input type="text" id="display-start" class="form-control bg-white border-0 text-center fw-bold" value="Noch nicht gestartet" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="p-3 bg-white rounded shadow-sm">
                                                 <i class="bi bi-stop-circle text-danger fs-3 mb-2"></i>
                                                 <label class="form-label small text-uppercase text-muted fw-bold mb-1">Beendet</label>
-                                                <input type="text" id="display-end" class="form-control bg-white border-0 text-center fw-bold" value="{{ old('ende_zeit') ? old('ende_zeit') : 'Noch nicht gestoppt' }}" readonly>
+                                                <input type="text" id="display-end" class="form-control bg-white border-0 text-center fw-bold" value="Noch nicht gestoppt" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="p-3 bg-white rounded shadow-sm">
                                                 <i class="bi bi-pause-circle text-warning fs-3 mb-2"></i>
                                                 <label class="form-label small text-uppercase text-muted fw-bold mb-1">Pause</label>
-                                                <input type="text" id="display-pause" class="form-control bg-white border-0 text-center fw-bold" value="{{ old('pause_minuten', 0) }} Min" readonly>
+                                                <input type="text" id="display-pause" class="form-control bg-white border-0 text-center fw-bold" value="0 Min" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -301,31 +301,9 @@
                                 pauseBtn.addEventListener('click', togglePause);
                                 stopBtn.addEventListener('click', stopTimer);
 
-                                if (startInput.value) {
-                                    startBtn.disabled = true;
-                                    if (displayStart.value === startInput.value) {
-                                        displayStart.value = formatLocal(startInput.value);
-                                    }
-                                }
-                                if (endInput.value) {
-                                    pauseBtn.disabled = true;
-                                    stopBtn.disabled = true;
-                                    saveBtn.disabled = false;
-                                    if (displayEnd.value === endInput.value) {
-                                        displayEnd.value = formatLocal(endInput.value);
-                                    }
-                                    updateStatus('Beendet', 'bi-check-circle-fill text-danger', 'danger');
-                                    calculateDuration(); // Nur bei beendetem Timer berechnen
-                                } else if (startInput.value) {
-                                    pauseBtn.disabled = false;
-                                    stopBtn.disabled = false;
-                                    saveBtn.disabled = true;
-                                    updateStatus('Läuft...', 'bi-circle-fill text-success', 'success');
-                                    timerInterval = setInterval(calculateDuration, 1000);
-                                    calculateDuration(); // Sofort berechnen bei laufendem Timer
-                                }
-
-                                // Nicht automatisch berechnen bei alten Formulardaten
+                                // Timer startet immer frisch - keine alten Werte verwenden
+                                calculateDuration();
+                                updatePauseDisplay();
                             });
                         </script>
                     @endpush
