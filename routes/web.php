@@ -55,6 +55,12 @@ Route::middleware(['auth'])->group(function () {
     // Allgemeines Dashboard
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
+    // Heartbeat für Session-Verlängerung
+    Route::get('/heartbeat', function () {
+        session()->put('last_activity', now());
+        return response()->json(['status' => 'ok']);
+    })->name('heartbeat');
+
     // --- MITARBEITER BEREICH (Zeiteinträge) ---
     Route::prefix('zeiteintraege')->group(function () {
         Route::get('/', [ZeiteintragController::class, 'index'])->name('zeiteintraege.index');

@@ -165,6 +165,7 @@
                                 let pauseStart = null;
                                 let isPaused = false;
                                 let timerInterval = null;
+                                let heartbeatInterval = null;
 
                                 function updateStatus(status, icon, color) {
                                     statusBadge.innerHTML = `<i class="bi ${icon} me-2"></i>${status}`;
@@ -235,6 +236,12 @@
 
                                     updateStatus('Läuft...', 'bi-circle-fill text-success', 'success');
                                     timerInterval = setInterval(calculateDuration, 1000);
+                                    heartbeatInterval = setInterval(() => {
+                                        fetch('/heartbeat', { 
+                                            method: 'GET', 
+                                            headers: { 'X-Requested-With': 'XMLHttpRequest' } 
+                                        });
+                                    }, 600000); // Alle 10 Minuten Session verlängern
                                 }
 
                                 function togglePause() {
@@ -296,6 +303,8 @@
 
                                     updateStatus('Beendet', 'bi-check-circle-fill text-danger', 'danger');
                                     clearInterval(timerInterval);
+                                    clearInterval(heartbeatInterval);
+                                    heartbeatInterval = null;
                                 }
 
                                 startBtn.addEventListener('click', startTimer);
