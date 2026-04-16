@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Position extends Model
 {
-    protected $fillable = ['user_id', 'name'];
+    // admin_id statt user_id
+    protected $fillable = ['admin_id', 'name'];
 
     public function user() {
-    return $this->belongsTo(User::class);
+        // Wir sagen Laravel explizit, dass der Fremdschlüssel admin_id heißt
+        return $this->belongsTo(User::class, 'admin_id');
     }
 }

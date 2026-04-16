@@ -10,14 +10,15 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+{
     Schema::create('positions', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Verknüpfung zur Firma
+        // Geändert von user_id zu admin_id
+        $table->foreignId('admin_id')->constrained('users')->onDelete('cascade'); 
         $table->string('name');
         $table->timestamps();
-     });
-    }
+    });
+}
 
     /**
      * Reverse the migrations.

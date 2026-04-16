@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Allow: /impressum
+Allow: /datenschutz
+
+# Schütze die App-Bereiche vor Suchmaschinen
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+Disallow: /zeiteintraege
+Disallow: /admin
+Disallow: /api
+
+# Pfad zu deiner Sitemap (falls vorhanden)
+# Sitemap: https://signsync.de/sitemap.xml

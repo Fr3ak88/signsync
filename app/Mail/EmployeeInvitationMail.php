@@ -31,7 +31,7 @@ class EmployeeInvitationMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.invitation', // Diese Datei erstellen wir gleich
+            view: 'emails.invitation', // Hier wird auf deine Datei verwiesen
         );
     }
 }

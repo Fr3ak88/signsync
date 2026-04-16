@@ -22,25 +22,43 @@
         h1 { font-size: 2rem; color: #1e293b; margin-bottom: 1rem; }
         p { color: #64748b; line-height: 1.6; }
         @media (max-width: 768px) { .card { flex-direction: column; } .card-right { width: auto; border-left: none; border-top: 1px solid #e2e8f0; } }
+        /* FOOTER STYLING */
+        .footer {
+            text-align: center; 
+            padding: 2rem; 
+            color: #94a3b8; 
+            font-size: 0.8rem; 
+            border-top: 1px solid #e2e8f0;
+            background: white;
+        }
+        .footer a { color: #94a3b8; text-decoration: none; margin: 0 10px; }
+
+        @media (max-width: 768px) { .card { flex-direction: column; } .card-right { width: auto; border-left: none; border-top: 1px solid #e2e8f0; } }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">SignSync</div>
-        <div class="nav-links">
-            @if (Route::has('login'))
-                @auth
-                    <a href="{{ url('/dashboard') }}">Dashboard</a>
-                @else
-                    <a href="{{ route('login') }}">Login</a>
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}">Registrieren</a>
-                    @endif
-                @endauth
-            @endif
-        </div>
-    </nav>
+<nav class="navbar shadow-sm">
+    <div class="logo">SignSync</div>
+    
+    <div class="nav-links">
+        <a href="{{ route('plans.index') }}" class="nav-link-item {{ Request::routeIs('plans.index') ? 'active' : '' }} me-3">
+            <i class="bi bi-tags me-1"></i> Preise
+        </a>
+
+        @if (Route::has('login'))
+            @auth
+                <a href="{{ url('/dashboard') }}" class="ms-2">Dashboard</a>
+            @else
+                <a href="{{ route('login') }}" class="text-muted ms-2 me-3">Login</a>
+                
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="btn-register">Registrieren</a>
+                @endif
+            @endauth
+        @endif
+    </div>
+</nav>
 
     <div class="main-container">
         <main class="card">
@@ -61,13 +79,23 @@
             </div>
 
             <div class="card-right">
-                <a href="{{ route('register') }}" class="btn-primary">Jetzt starten</a>
+                <a href="{{ route('plans.index') }}" class="btn-primary">Jetzt starten</a>
             </div>
         </main>
     </div>
 
-    <footer style="text-align: center; padding: 2rem; color: #94a3b8; font-size: 0.8rem;">
-        &copy; {{ date('Y') }} SignSync – Effiziente Begleitung, digitale Lösung.
+    {{-- FOOTER SEKTION --}}
+    <footer class="footer">
+        <div>
+            &copy; {{ date('Y') }} <strong>SignSync</strong> – Effiziente Begleitung, digitale Lösung.
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <a href="{{ route('impressum') }}">Impressum</a>
+            |
+            <a href="{{ route('datenschutz') }}">Datenschutz</a>
+            |
+            <a href="#">AGB</a>
+        </div>
     </footer>
 
 </body>

@@ -1,0 +1,34 @@
+[90m= [39m[34;4mMollie\Api\Resources\Customer[39;24m {#5942
+    +[1mresource[22m: "[32mcustomer[39m",
+    +[1mid[22m: "[32mcst_Nj7chwh2Xy[39m",
+    +[1mmode[22m: "[32mtest[39m",
+    +[1mname[22m: "[32mEugen Fritzler[39m",
+    +[1memail[22m: "[32mgroup@fritzler.fr[39m",
+    +[1mlocale[22m: "[32mde_DE[39m",
+    +[1mmetadata[22m: [36mnull[39m,
+    +[1mrecentlyUsedMethods[22m: [36mnull[39m,
+    +[1mcreatedAt[22m: "[32m2026-03-20T11:38:15+00:00[39m",
+    +[1m_links[22m: {#6340
+      +"[1mself[22m": {#6163
+        +"[1mhref[22m": "[32mhttps://api.mollie.com/v2/customers/cst_Nj7chwh2Xy[39m",
+        +"[1mtype[22m": "[32mapplication/hal+json[39m",
+      },
+      +"[1mdashboard[22m": {#6339
+        +"[1mhref[22m": "[32mhttps://my.mollie.com/dashboard/org_19481631/customers/cst_Nj7chwh2Xy[39m",
+        +"[1mtype[22m": "[32mtext/html[39m",
+      },
+      +"[1mmandates[22m": {#6338
+        +"[1mhref[22m": "[32mhttps://api.mollie.com/v2/customers/cst_Nj7chwh2Xy/mandates[39m",
+        +"[1mtype[22m": "[32mapplication/hal+json[39m",
+      },
+      +"[1mpayments[22m": {#6337
+        +"[1mhref[22m": "[32mhttps://api.mollie.com/v2/customers/cst_Nj7chwh2Xy/payments[39m",
+        +"[1mtype[22m": "[32mapplication/hal+json[39m",
+      },
+      +"[1mdocumentation[22m": {#6336
+        +"[1mhref[22m": "[32mhttps://docs.mollie.com/reference/get-customer[39m",
+        +"[1mtype[22m": "[32mtext/html[39m",
+      },
+    },
+  }
+

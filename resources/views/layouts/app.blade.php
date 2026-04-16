@@ -1,82 +1,163 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html lang="de">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SignSync - Dashboard</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        body { 
+            font-family: 'Instrument Sans', sans-serif; 
+            background-color: #f8fafc; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
+        
+        #app { display: flex; flex-direction: column; flex: 1; }
+        
+        .navbar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 1rem 10%; 
+            background: white; 
+            border-bottom: 1px solid #e2e8f0; 
+        }
+        
+        .logo { font-weight: bold; font-size: 1.25rem; color: #1e293b; text-decoration: none; }
+        
+        .card { 
+            border: none; 
+            border-radius: 0.75rem; 
+            transition: box-shadow 0.2s, background-color 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+            background-color: #f8f9fa;
+        }
+        
+        footer {
+            text-align: center; 
+            padding: 2rem; 
+            color: #94a3b8; 
+            font-size: 0.8rem; 
+            border-top: 1px solid #f1f5f9; 
+            background: white;
+            margin-top: auto;
+        }
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
 
-    <!-- Scripts -->
-    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        .nav-links a.active {
+            color: #1e293b !important;
+            font-weight: 600;
+        }
+
+        .breadcrumb { margin-bottom: 0; }
+        .breadcrumb-item + .breadcrumb-item::before { content: "›"; }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+<div id="app">
+    <nav class="navbar shadow-sm">
+        <a href="{{ Auth::check() ? url('/dashboard') : url('/') }}" class="logo">SignSync</a>
+        <div class="nav-links d-flex align-items-center">
+            <a href="{{ route('plans.index') }}" class="text-muted me-3">Preise</a>
+
+            @auth
+                <span class="text-muted me-3 small">
+                    <i class="bi bi-person-circle me-1"></i> {{ Auth::user()->name }}
+                </span>
+                
+                <a href="{{ route('logout') }}" 
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                   style="color: #ef4444; font-weight: bold;" class="small">
+                   Logout
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
+            @else
+                <a href="{{ route('login') }}" class="text-muted me-3">Login</a>
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="text-muted border px-2 py-1 rounded">Registrieren</a>
+                @endif
+            @endauth
+        </div>
+    </nav>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+    <main class="py-4">
+        @auth
+            <div class="container mb-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-white p-2 px-3 rounded shadow-sm border small">
+                        <li class="breadcrumb-item">
+                            <a href="{{ url('/dashboard') }}" class="text-decoration-none text-muted">
+                                <i class="bi bi-speedometer2 me-1"></i> Dashboard
+                            </a>
+                        </li>
+                        @foreach(Request::segments() as $segment)
+                            @if(!in_array($segment, ['admin', 'dashboard']))
+                                <li class="breadcrumb-item active text-primary fw-medium" aria-current="page">
+                                    @php
+                                        $translations = [
+                                            'employees' => 'Mitarbeiterverwaltung',
+                                            'positions' => 'Einsatzbereiche',
+                                            'create'    => 'Neu anlegen',
+                                            'edit'      => 'Bearbeiten',
+                                            'profile'   => 'Profil'
+                                        ];
+                                        echo $translations[$segment] ?? ucfirst(str_replace('-', ' ', $segment));
+                                    @endphp
                                 </li>
                             @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+                        @endforeach
+                    </ol>
+                </nav>
             </div>
-        </nav>
+        @endauth
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+        {{-- Fehlermeldungen --}}
+        @if(session('error'))
+            <div class="container mb-3">
+                <div class="alert alert-danger shadow-sm border-0">{{ session('error') }}</div>
+            </div>
+        @endif
+        @if(session('success'))
+            <div class="container mb-3">
+                <div class="alert alert-success shadow-sm border-0">{{ session('success') }}</div>
+            </div>
+        @endif
+
+        @yield('content')
+    </main>
+
+    <footer>
+        <div>
+            &copy; {{ date('Y') }} <strong>SignSync</strong> – Effiziente Begleitung, digitale Lösung.
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <a href="{{ route('impressum') }}" style="color: #94a3b8; margin: 0 10px; text-decoration: none;">Impressum</a>
+            |
+            <a href="{{ route('datenschutz') }}" style="color: #94a3b8; margin: 0 10px; text-decoration: none;">Datenschutz</a>
+            |
+            <a href="#" style="color: #94a3b8; margin: 0 10px; text-decoration: none;">AGB</a>
+        </div>
+        <div>
+            Alle Preise zzgl. MwSt.
+        </div>
+    </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+@stack('scripts')
 </body>
 </html>

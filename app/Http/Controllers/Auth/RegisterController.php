@@ -59,6 +59,7 @@ protected function validator(array $data)
         'country'      => ['required', 'string'],
         'email'        => ['required', 'string', 'email', 'max:255', 'unique:users'],
         'password'     => ['required', 'string', 'min:8', 'confirmed'],
+        'avv_confirm' => ['required', 'accepted'],
     ]);
 }
 
@@ -80,6 +81,8 @@ return User::create([
         'country'      => $data['country'],
         'email'        => $data['email'],
         'password'     => Hash::make($data['password']),
+        'avv_accepted_at' => now(),
+        'role'         => 'admin',
     ]);
 }
 }

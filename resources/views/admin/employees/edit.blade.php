@@ -33,24 +33,50 @@
                         <div class="mb-4">
                             <label class="form-label fw-bold">Position / Rolle</label>
                             <select name="position" class="form-select @error('position') is-invalid @enderror" required>
-                            <option value="" disabled>Bitte wählen...</option>
-        
-                            @foreach($positions as $pos)
-                            <option value="{{ $pos->name }}" {{ $employee->position == $pos->name ? 'selected' : '' }}>
-                            {{ $pos->name }}
-                            </option>
-                            @endforeach
+                                <option value="" disabled>Bitte wählen...</option>
+                                @foreach($positions as $pos)
+                                    <option value="{{ $pos->name }}" {{ $employee->position == $pos->name ? 'selected' : '' }}>
+                                        {{ $pos->name }}
+                                    </option>
+                                @endforeach
                             </select>
-    
                             @if($positions->isEmpty())
                                 <div class="form-text text-danger">
-                                <i class="bi bi-exclamation-triangle me-1"></i> 
-                                Keine Positionen angelegt. <a href="/admin/positions">Hier Positionen erstellen.</a>
+                                    <i class="bi bi-exclamation-triangle me-1"></i> 
+                                    Keine Positionen angelegt. <a href="/admin/positions">Hier Positionen erstellen.</a>
                                 </div>
                             @endif
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center">
+                        {{-- NEU: BEREICH FÜR SCHÜLER-ZUWEISUNG --}}
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-primary">
+                                <i class="bi bi-person-check me-1"></i> Zugewiesene Schüler
+                            </label>
+                            <div class="p-3 border rounded bg-light" style="max-height: 200px; overflow-y: auto;">
+                                @forelse($schueler as $kind)
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="schueler[]" 
+                                               value="{{ $kind->id }}" 
+                                               id="kind{{ $kind->id }}"
+                                               {{ $employee->schueler->contains($kind->id) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="kind{{ $kind->id }}">
+                                            <span class="fw-bold">{{ $kind->name }}</span> 
+                                            <span class="text-muted small">({{ $kind->school_name ?? 'Keine Schule angegeben' }})</span>
+                                        </label>
+                                    </div>
+                                @empty
+                                    <p class="text-muted small mb-0 italic">
+                                        <i class="bi bi-info-circle me-1"></i> Keine Schüler in der Datenbank gefunden.
+                                    </p>
+                                @endforelse
+                            </div>
+                            <div class="form-text mt-2">
+                                Wählen Sie aus, welche Schüler dieser Mitarbeiter im Zeiteintrag sehen darf.
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-4">
                             <a href="/admin/employees" class="text-decoration-none text-muted">
                                 <i class="bi bi-x-circle me-1"></i> Abbrechen
                             </a>

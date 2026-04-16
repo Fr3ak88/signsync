@@ -7,11 +7,11 @@
             <h1 class="fw-bold">Stammdaten: Positionen/Rollen</h1>
             <p class="text-muted">Definieren Sie die Rollen für Ihre Mitarbeiter von <strong>{{ Auth::user()->company }}</strong></p>
         </div>
-        <div class="col-md-6 text-md-end">
-            <a href="/dashboard" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-1"></i> Zurück
-            </a>
-        </div>
+            <div class="mt-4">
+        <a href="{{ route('dashboard') }}" class="btn btn-light border shadow-sm px-4">
+            <i class="bi bi-arrow-left me-2"></i> Zurück zum Dashboard
+        </a>
+    </div>
     </div>
 
     @if(session('success'))
