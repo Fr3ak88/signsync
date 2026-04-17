@@ -21,7 +21,7 @@
         <div>
             <strong>Handlungsbedarf:</strong> Sie haben noch keinen Auftragsverarbeitungsvertrag (AVV) unterzeichnet. 
             Um SignSync rechtssicher zu nutzen, ist dies gesetzlich zwingend erforderlich.
-            <a href="{{ route('avv.show') }}" class="alert-link ms-2">Jetzt AVV prüfen & unterzeichnen</a>
+            <a href="{{ route('avv.accept') }}" class="alert-link ms-2">Jetzt AVV prüfen & unterzeichnen</a>
         </div>
     </div>
     @endif
