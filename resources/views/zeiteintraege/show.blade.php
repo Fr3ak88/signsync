@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="mb-3">
-        <a href="/dashboard" class="text-decoration-none text-muted small">
+        <a href="/zeiteintraege" class="text-decoration-none text-muted small">
             <i class="bi bi-arrow-left"></i> Zurück zum Dashboard
         </a>
     </div>
