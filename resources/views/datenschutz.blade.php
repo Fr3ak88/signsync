@@ -32,26 +32,55 @@
             </section>
 
             <section class="mb-4">
-                <h5 class="fw-bold">4. Datenerfassung in SignSync</h5>
-                <p>Wir verarbeiten folgende Datenkategorien zur Bereitstellung unserer Dienstleistung:</p>
-                <ul>
-                    <li><strong>Benutzerdaten Firma:</strong> Firma, Name, Adresse und E-Mail des Unternehmens zur Account-Verwaltung.</li>
-                    <li><strong>Benutzerdaten Mitarbeiter:</strong> Name und E-Mail zur Account-Verwaltung und Authentifizierung.</li>
-                    <li><strong>Einsatzdaten:</strong> Namen der betreuten Schüler, Zeiten und Tätigkeitsnachweise.</li>
-                    <li><strong>Sensible Daten (Art. 9 DSGVO):</strong> Da im Rahmen der Schulbegleitung indirekt Gesundheitsdaten oder Förderbedarfe dokumentiert werden, unterliegen diese einer besonderen Schutzstufe (siehe Punkt 6).</li>
-                    <li><strong>Digitale Signatur:</strong> Grafische Unterschriften zur Verifizierung der Einsätze.</li>
-                    <li><strong>Technische Daten:</strong> IP-Adresse, Browsertyp und Betriebssystem (Server-Logfiles) zur Sicherstellung des Betriebs und zur Missbrauchserkennung.</li>
-                </ul>
-            </section>
+    <h5 class="fw-bold">4. Transparenz der Datenweitergabe (Subprozessoren)</h5>
+    <p>Zur Erbringung unserer Dienstleistung setzen wir spezialisierte Partnerunternehmen ein, mit denen entsprechende Verträge zur Auftragsverarbeitung (Art. 28 DSGVO) bestehen:</p>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered bg-white">
+            <thead class="bg-light text-muted">
+                <tr>
+                    <th>Dienstleister</th>
+                    <th>Zweck</th>
+                    <th>Sicherheitsgarantie</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1blu AG</strong>, Berlin (DE)</td>
+                    <td>Infrastruktur, Server-Hosting & Backups</td>
+                    <td>AVV, Standort Deutschland, ISO-Konformität</td>
+                </tr>
+                <tr>
+                    <td><strong>Mollie B.V.</strong>, Amsterdam (NL)</td>
+                    <td>Zahlungsabwicklung</td>
+                    <td>PCI-DSS zertifiziert, EU-Sitz</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p class="small text-muted"><i class="bi bi-info-circle me-1"></i> <strong>Keine Drittlandübermittlung:</strong> Wir nutzen keine Dienstleister in den USA (wie AWS, Google oder Microsoft) für die Kernprozesse der Applikation. Sämtliche personenbezogene Daten verbleiben innerhalb der EU/EWR.</p>
+</section>
 
-            <section class="mb-4">
-                <h5 class="fw-bold">5. Technische Sicherheit und Versiegelung</h5>
-                <ul>
-                    <li><strong>SSL-/TLS-Verschlüsselung:</strong> SignSync nutzt eine durchgehende Verschlüsselung zum Schutz vertraulicher Inhalte während der Übertragung.</li>
-                    <li><strong>Digitale Versiegelung:</strong> Jeder abgeschlossene Beleg wird mittels eines <strong>SHA-256 Hash-Verfahrens</strong> mit einer eindeutigen Sicherheits-ID versehen. Dies stellt die Integrität sicher; nachträgliche Manipulationen werden dadurch sofort erkennbar.</li>
-                    <li><strong>Geschützte Ablage:</strong> Generierte PDF-Belege werden in einem nicht-öffentlichen Bereich des Servers gespeichert (Private Storage) und sind nur für authentifizierte Nutzer zugänglich.</li>
-                </ul>
-            </section>
+<section class="mb-4 border-start border-success border-4 ps-3">
+    <h5 class="fw-bold text-success">5. Technische Details zur Datenverarbeitung & Sicherheit</h5>
+    <div class="row">
+        <div class="col-md-6">
+            <h6 class="fw-bold">Datenverarbeitung im Detail:</h6>
+            <ul class="small">
+                <li><strong>Daten-Hashing:</strong> Alle generierten Monatsberichte werden mittels SHA-256 kryptografisch versiegelt.</li>
+                <li><strong>Zugriffsschutz:</strong> Passwort-Hashing über Bcrypt (Work-Factor 10).</li>
+                <li><strong>Mandanten-Isolation:</strong> Logische Trennung auf Datenbankebene (Row-Level-Security).</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h6 class="fw-bold">Aufbewahrung & Löschung:</h6>
+            <ul class="small">
+                <li><strong>Server-Logs:</strong> Automatische Löschung nach 14 Tagen (rotierend).</li>
+                <li><strong>Abonnement-Daten:</strong> Löschung nach Kündigung und Ablauf der steuerlichen Aufbewahrungsfrist (10 Jahre gemäß AO).</li>
+                <li><strong>Benutzer-Content:</strong> Manuelle Löschung durch den Admin jederzeit möglich.</li>
+            </ul>
+        </div>
+    </div>
+</section>
 
             <section class="mb-4">
                 <h5 class="fw-bold">6. Rechtsgrundlagen</h5>
