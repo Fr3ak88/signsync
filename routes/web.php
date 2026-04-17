@@ -120,8 +120,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/cancel-subscription', [SubscriptionController::class, 'cancel'])->name('plans.cancel');
 
         // AVV
-        Route::get('/admin/avv', [LegalController::class, 'showAvv'])->name('admin.avv.show');
-        Route::post('/admin/avv/accept', [LegalController::class, 'acceptAvv'])->name('admin.avv.accept');
+        Route::get('/avv', [LegalController::class, 'showAvv'])->name('admin.avv.show');
+        Route::post('/avv/accept', [LegalController::class, 'acceptAvv'])->name('admin.avv.accept');
     });
 
     }); // Ende 'has.plan'
