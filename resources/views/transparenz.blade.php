@@ -84,7 +84,7 @@
             <div class="mt-5 pt-3 border-top text-center">
                 <p class="small text-muted">Haben Sie spezifische Fragen zur IT-Sicherheit? Kontaktieren Sie uns unter <a href="mailto:info@signsync.de">info@signsync.de</a></p>
                 <a href="{{ url()->previous() }}" class="btn btn-success mt-3">
-                    <i class="bi bi-arrow-left me-2"></i>Zurück zur App
+                    <i class="bi bi-arrow-left me-2"></i>Zurück
                 </a>
             </div>
         </div>
