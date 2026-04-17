@@ -16,7 +16,7 @@
                     <h5 class="fw-bold">Zwischen</h5>
                     <p class="mb-1"><strong>Dem Auftraggeber:</strong></p>
                     <p class="border-start border-3 ps-3 italic">
-                        {{ $organization->name ?? '[Name des Trägers]' }}<br>
+                        {{ $organization->company_name ?? $organization->name }}<br>
                         {{ $organization->address ?? '[Anschrift]' }}
                     </p>
                     
@@ -90,7 +90,7 @@
                         <form action="{{ route('admin.avv.accept') }}" method="POST">
                             @csrf
                             <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" id="acceptCheck" required>
+                                <input class="form-check-input" type="checkbox" name="acceptCheck" id="acceptCheck" required>
                                 <label class="form-check-label" for="acceptCheck">
                                     Ich bin vertretungsberechtigt für die oben genannte Organisation und akzeptiere den AVV.
                                 </label>
