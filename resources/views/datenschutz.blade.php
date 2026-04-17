@@ -87,14 +87,6 @@
                 <p>Sie haben jederzeit das Recht auf unentgeltliche Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16 DSGVO), Löschung (Art. 17 DSGVO) oder Einschränkung der Verarbeitung Ihrer Daten sowie das Recht auf Datenübertragbarkeit (Art. 20 DSGVO).</p>
             </section>
             
-            <section class="mb-4 text-center">
-                <div class="p-3 bg-light rounded border">
-                    <p class="mb-0 text-muted italic">
-                        <i class="bi bi-info-circle me-2"></i>
-                        „Wir verwenden ausschließlich technisch notwendige Session-Cookies, um die Funktionalität des Logins zu gewährleisten.“
-                    </p>
-                </div>
-            </section>
             <section class="mb-4">
     <h5 class="fw-bold">10. Auftragsverarbeitung (AVV) nach Art. 28 DSGVO</h5>
     <div class="p-3 border rounded bg-white">
@@ -133,6 +125,15 @@
         </div>
     </div>
 </section>
+
+                        <section class="mb-4 text-center">
+                <div class="p-3 bg-light rounded border">
+                    <p class="mb-0 text-muted italic">
+                        <i class="bi bi-info-circle me-2"></i>
+                        „Wir verwenden ausschließlich technisch notwendige Session-Cookies, um die Funktionalität des Logins zu gewährleisten.“
+                    </p>
+                </div>
+            </section>
             <div class="mt-4">
                 <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left"></i> Zurück
