@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <p class="text-muted mb-1">Schüler</p>
-                    <p class="fw-bold fs-5">{{ $eintrag->schueler->name }}</p>
+                    <p class="fw-bold fs-5">{{ $eintrag->schueler->name ?? 'Interner Eintrag'}}</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="text-muted mb-1">Datum</p>
