@@ -4,11 +4,11 @@
 <div class="container py-5 text-start">
     <div class="row justify-content-center">
         <div class="col-md-10 card border-0 shadow-sm p-5">
-            <h1 class="fw-bold text-success mb-4"><i class="bi bi-shield-check me-2"></i>Datenschutzerklärung & Transparenzdokumentation</h1>
+            <h1 class="fw-bold text-success mb-4"><i class="bi bi-shield-check me-2"></i>Datenschutzerklärung & Transparenzbericht</h1>
 
             <section class="mb-4">
-                <h5 class="fw-bold">1. Datenschutz auf einen Blick</h5>
-                <p>Diese Erklärung gibt Aufschluss darüber, wie <strong>SignSync</strong> personenbezogene Daten verarbeitet. Wir setzen auf "Privacy by Design" – das bedeutet: keine Analyse-Tools, kein Tracking, maximale Datensparsamkeit.</p>
+                <h5 class="fw-bold">1. Allgemeine Hinweise & Grundprinzipien</h5>
+                <p>Diese Erklärung gibt Aufschluss über die Verarbeitung personenbezogener Daten in der Applikation <strong>SignSync</strong>. Wir arbeiten nach den Grundsätzen der Datensparsamkeit und Zweckbindung. Ein Tracking des Nutzerverhaltens findet nicht statt.</p>
             </section>
 
             <section class="mb-4">
@@ -17,96 +17,86 @@
                 E-Mail: <a href="mailto:info@signsync.de" class="text-success text-decoration-none">info@signsync.de</a></p>
             </section>
 
-            <section class="mb-4 border-start border-success border-4 ps-3 bg-light py-2">
-                <h5 class="fw-bold text-success">3. Infrastruktur & Serverstandort</h5>
-                <p>Unsere Applikation wird bei der <strong>1blu AG, Stromstraße 1-5, 10551 Berlin</strong> gehostet.</p>
+            <section class="mb-4">
+                <h5 class="fw-bold">3. Datenerfassung auf der Website & App</h5>
+                <p>Wir differenzieren die Datenerfassung nach folgenden Zwecken:</p>
                 <ul>
-                    <li><strong>Standort:</strong> Ausschließlich Deutschland.</li>
-                    <li><strong>Drittlandtransfer:</strong> Explizit ausgeschlossen. Wir nutzen keine US-Cloud-Anbieter (wie AWS/Google). Sämtliche Daten verbleiben im EWR-Raum.</li>
+                    <li><strong>Bereitstellung:</strong> IP-Adresse & Browserdaten (Server-Logs) zur technischen Auslieferung.</li>
+                    <li><strong>Sicherheit:</strong> Protokollierung von Login-Versuchen zur Missbrauchserkennung.</li>
+                    <li><strong>Funktion:</strong> Speicherung von Eingabedaten (Zeiten, Namen) zur Vertragserfüllung.</li>
                 </ul>
             </section>
 
             <section class="mb-4">
-                <h5 class="fw-bold">4. Granulare Zuordnung der Verarbeitungstätigkeiten</h5>
-                <div class="table-responsive">
-                    <table class="table table-sm table-bordered bg-white small">
+                <h5 class="fw-bold">4. Cookies</h5>
+                <p>SignSync setzt <strong>ausschließlich technisch notwendige Session-Cookies</strong> ein. Diese dienen dazu, Sie während einer aktiven Sitzung als eingeloggten Nutzer zu identifizieren. Wir verwenden keine Statistik-, Marketing- oder Drittanbieter-Cookies.</p>
+            </section>
+
+            <section class="mb-4 border-start border-success border-4 ps-3 bg-light py-2">
+                <h5 class="fw-bold text-success">5. Kontaktaufnahme</h5>
+                <p class="mb-0 small">Anfragen via E-Mail werden zur Bearbeitung und für den Fall von Anschlussfragen gespeichert. Die Rechtsgrundlage hierfür ist Art. 6 Abs. 1 lit. b (vorvertragliche Maßnahmen) oder lit. f (berechtigtes Interesse).</p>
+            </section>
+
+            <section class="mb-4">
+                <h5 class="fw-bold">6. Zweck der Verarbeitung</h5>
+                <p>Die Verarbeitung dient primär der Erstellung digitaler Leistungsnachweise in der Schulbegleitung, der rechtssicheren Archivierung von Einsatzzeiten sowie der Abrechnungsunterstützung für soziale Träger.</p>
+            </section>
+
+            <section class="mb-4">
+                <h5 class="fw-bold">7. Weitergabe von Daten & Empfänger</h5>
+                <p>Eine Weitergabe erfolgt ausschließlich an:</p>
+                <ul>
+                    <li>Den jeweiligen <strong>Zahlungsdienstleister</strong> (Mollie) zur Abwicklung Ihres Abonnements.</li>
+                    <li>Behörden/Leistungsträger, jedoch <strong>nur durch den Nutzer selbst</strong> (Export-Funktion).</li>
+                    <li>Unseren <strong>Hosting-Provider</strong> im Rahmen der Auftragsverarbeitung.</li>
+                </ul>
+            </section>
+
+            <section class="mb-4">
+                <h5 class="fw-bold">8. Auftragsverarbeitung & Subprozessoren</h5>
+                <p>Wir arbeiten mit folgenden Kern-Dienstleistern zusammen:</p>
+                <div class="table-responsive small">
+                    <table class="table table-bordered bg-white">
                         <thead class="table-light">
                             <tr>
-                                <th>Prozess</th>
-                                <th>Datenkategorien</th>
-                                <th>Rechtsgrundlage</th>
+                                <th>Anbieter</th>
+                                <th>Sitz</th>
+                                <th>Leistung</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Login & Betrieb</td>
-                                <td>E-Mail, Passwort-Hash, Session-ID</td>
-                                <td>Art. 6 Abs. 1 lit. b (Vertrag)</td>
+                                <td><strong>1blu AG</strong></td>
+                                <td>Berlin, DE</td>
+                                <td>Cloud-Hosting & Datenbankbetrieb</td>
                             </tr>
                             <tr>
-                                <td>Leistungsnachweis</td>
-                                <td>Name (Schüler), Einsatzzeiten</td>
-                                <td>Art. 9 Abs. 2 lit. h (Sozialdaten)</td>
-                            </tr>
-                            <tr>
+                                <td><strong>Mollie B.V.</strong></td>
+                                <td>Amsterdam, NL</td>
                                 <td>Zahlungsabwicklung</td>
-                                <td>Zahlungsdaten, Rechnungsadresse</td>
-                                <td>Art. 6 Abs. 1 lit. b (Zahlung)</td>
-                            </tr>
-                            <tr>
-                                <td>IT-Sicherheit</td>
-                                <td>IP-Adresse, Zugriffslogs</td>
-                                <td>Art. 6 Abs. 1 lit. f (Ber. Interesse)</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <section class="mb-4">
-                <h5 class="fw-bold">5. Zahlungsabwicklung via Mollie</h5>
-                <p>Zahlungen werden über die <strong>Mollie B.V. (Keizersgracht 126, Amsterdam, NL)</strong> prozessiert. Mollie ist PCI-DSS zertifiziert und verarbeitet Daten gemäß EU-Sicherheitsstandards.</p>
-                <p class="small text-muted">
-                    Details zur Datenverarbeitung durch den Zahlungsdienstleister finden Sie unter: 
-                    <a href="https://www.mollie.com/de/privacy" target="_blank" class="text-success text-decoration-none">https://www.mollie.com/de/privacy</a>
-                </p>
+            <section class="mb-4 border-start border-danger border-4 ps-3 bg-light py-2">
+                <h5 class="fw-bold text-danger">9. Drittlandübermittlung</h5>
+                <p class="mb-0"><strong>SignSync verarbeitet Daten ausschließlich innerhalb der EU/EWR.</strong> Es findet keine Übermittlung in Drittstaaten (insb. USA) statt. Wir nutzen keine US-basierten Subprozessoren, wodurch Garantien wie Standardvertragsklauseln (SCC) oder das Data Privacy Framework aufgrund der rein europäischen Datenhaltung nicht erforderlich sind.</p>
             </section>
 
             <section class="mb-4">
-                <h5 class="fw-bold">6. Zusammenfassung der Rechtsgrundlagen</h5>
-                <p>Wir stützen die Verarbeitung auf die Erfüllung vertraglicher Pflichten (Art. 6 I b), die Verwaltung von Sozialsystemen im Gesundheitswesen (Art. 9 II h) sowie auf unser berechtigtes Interesse an der Systemsicherheit (Art. 6 I f).</p>
+                <h5 class="fw-bold">10. Speicherdauer</h5>
+                <ul>
+                    <li><strong>Server-Logs:</strong> Automatische Löschung nach 14 Tagen.</li>
+                    <li><strong>Vertragsdaten:</strong> Speicherung gemäß gesetzlicher Aufbewahrungsfristen (§ 147 AO, 10 Jahre).</li>
+                    <li><strong>Nutzungsdaten:</strong> Löschung unmittelbar nach Account-Deaktivierung, sofern keine gesetzlichen Pflichten entgegenstehen.</li>
+                </ul>
             </section>
 
             <section class="mb-4">
-                <h5 class="fw-bold">7. SSL/TLS & Datensicherheit</h5>
-                <p>SignSync nutzt TLS 1.3 zur Verschlüsselung der Übertragung. Daten auf den Servern ("at rest") werden durch AES-256 Verschlüsselung sowie strikte Verzeichnis-Zugriffsbeschränkungen geschützt.</p>
-            </section>
-
-            <section class="mb-4 bg-light p-3 border-start border-4 border-success text-success">
-                <h5 class="fw-bold">8. Verzicht auf Analyse-Tools & Marketing-Cookies</h5>
-                <p class="mb-0">Zum Schutz der Privatsphäre setzen wir <strong>keine</strong> Analyse-Dienste (wie Google Analytics) oder Tracking-Pixel ein. Es erfolgt keine Profilbildung.</p>
-            </section>
-
-            <section class="mb-4">
-                <h5 class="fw-bold">9. Ihre Betroffenenrechte</h5>
-                <p>Ihnen stehen die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch (Art. 15-21 DSGVO) sowie ein Beschwerderecht bei der Aufsichtsbehörde (LDI NRW) zu.</p>
-            </section>
-
-            <section class="mb-4">
-                <h5 class="fw-bold">10. Auftragsverarbeitung (AVV)</h5>
-                <div class="p-3 border rounded bg-white">
-                    <p class="mb-0 small">Für Träger der Schulbegleitung stellen wir einen digitalen <strong>AV-Vertrag nach Art. 28 DSGVO</strong> bereit. Dieser kann im Admin-Dashboard unter "Einstellungen" rechtssicher abgeschlossen werden.</p>
-                </div>
-            </section>
-
-            <section class="mb-4">
-                <h5 class="fw-bold">11. Technische & Organisatorische Maßnahmen (TOM)</h5>
-                <div class="row g-2 small">
-                    <div class="col-md-6 border p-2 bg-light"><strong>Mandantentrennung:</strong> Isolation der Daten pro Träger-ID auf Datenbankebene.</div>
-                    <div class="col-md-6 border p-2 bg-light"><strong>Hashing:</strong> SHA-256 Versiegelung zur Sicherstellung der Revisionssicherheit.</div>
-                    <div class="col-md-6 border p-2 bg-light"><strong>Resilienz:</strong> Tägliche Backups mit Wiederherstellungstests (Disaster Recovery).</div>
-                    <div class="col-md-6 border p-2 bg-light"><strong>Audit-Logs:</strong> Protokollierung von Administrator-Aktionen zur Missbrauchskontrolle.</div>
-                </div>
+                <h5 class="fw-bold">11. Ihre Rechte als betroffene Person</h5>
+                <p>Ihnen stehen die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch (Art. 15-21 DSGVO) zu. Bitte wenden Sie sich hierfür an info@signsync.de.</p>
             </section>
             <section class="mb-4 text-center">
                 <div class="p-3 bg-light rounded border">
