@@ -95,7 +95,44 @@
                     </p>
                 </div>
             </section>
+            <section class="mb-4">
+    <h5 class="fw-bold">10. Auftragsverarbeitung (AVV) nach Art. 28 DSGVO</h5>
+    <div class="p-3 border rounded bg-white">
+        <p>Für gewerbliche Nutzer (Träger der Schulbegleitung) agiert SignSync als Auftragsverarbeiter. Wir stellen hierfür einen rechtskonformen <strong>Vertrag zur Auftragsverarbeitung (AVV)</strong> gemäß Art. 28 DSGVO bereit.</p>
+        <p class="mb-0">Kunden können diesen Vertrag direkt im Administrationsbereich unter „Einstellungen > Rechtliches“ einsehen und digital abschließen. Dieser Vertrag regelt detailliert die Pflichten zur Datensicherheit und die Weisungsgebundenheit der Verarbeitung.</p>
+    </div>
+</section>
 
+<section class="mb-4">
+    <h5 class="fw-bold">11. Technische und Organisatorische Maßnahmen (TOM)</h5>
+    <p>Zum Schutz der hochsensiblen Sozialdaten setzen wir über den Standard hinausgehende Maßnahmen ein:</p>
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div class="card h-100 p-3 bg-light border-0 shadow-sm">
+                <h6 class="fw-bold"><i class="bi bi-diagram-3 me-2"></i>Mandantentrennung</h6>
+                <p class="small text-muted mb-0">Strikte logische Trennung der Datenbank-Ressourcen. Ein Zugriff von Organisation A auf Daten der Organisation B ist technisch auf Datenbankebene ausgeschlossen.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 p-3 bg-light border-0 shadow-sm">
+                <h6 class="fw-bold"><i class="bi bi-eye-slash me-2"></i>Rollen- & Berechtigungskonzept</h6>
+                <p class="small text-muted mb-0">Zugriff erfolgt nach dem „Need-to-know“-Prinzip. Mitarbeiter sehen nur die ihnen zugewiesenen Fälle; Administratoren haben ausschließlich Zugriff auf die Daten ihres eigenen Mandanten.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 p-3 bg-light border-0 shadow-sm">
+                <h6 class="fw-bold"><i class="bi bi-database-lock me-2"></i>Backup & Recovery</h6>
+                <p class="small text-muted mb-0">Tägliche, verschlüsselte Backups auf geografisch getrennten Systemen innerhalb Deutschlands (1blu Infrastruktur), um Datenverlust vorzubeugen.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 p-3 bg-light border-0 shadow-sm">
+                <h6 class="fw-bold"><i class="bi bi-journal-text me-2"></i>Audit-Logging</h6>
+                <p class="small text-muted mb-0">Kritische Systemaktionen (Login-Versuche, Generierung von Leistungsnachweisen) werden protokolliert, um Missbrauch proaktiv zu erkennen.</p>
+            </div>
+        </div>
+    </div>
+</section>
             <div class="mt-4">
                 <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left"></i> Zurück
