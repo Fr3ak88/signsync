@@ -120,7 +120,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/cancel-subscription', [SubscriptionController::class, 'cancel'])->name('plans.cancel');
 
         // AVV
-        Route::post('/avv', [LegalController::class, 'showAvv'])->name('admin.avv.show');
+        Route::get('/avv', [LegalController::class, 'showAvv'])->name('admin.avv.show');
         Route::post('/avv/accept', [LegalController::class, 'acceptAvv'])->name('admin.avv.accept');
     });
 
