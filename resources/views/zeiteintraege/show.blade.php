@@ -4,7 +4,7 @@
 <div class="container">
     <div class="mb-3">
         <a href="/zeiteintraege" class="text-decoration-none text-muted small">
-            <i class="bi bi-arrow-left"></i> Zurück zum Dashboard
+            <i class="bi bi-arrow-left"></i> Zurück
         </a>
     </div>
 
