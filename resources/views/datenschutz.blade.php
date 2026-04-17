@@ -22,82 +22,66 @@
                 <p>Wir differenzieren die Datenerfassung nach folgenden Zwecken:</p>
                 <ul>
                     <li><strong>Bereitstellung:</strong> IP-Adresse & Browserdaten (Server-Logs) zur technischen Auslieferung.</li>
-                    <li><strong>Sicherheit:</strong> Protokollierung von Login-Versuchen zur Missbrauchserkennung.</li>
-                    <li><strong>Funktion:</strong> Speicherung von Eingabedaten (Zeiten, Namen) zur Vertragserfüllung.</li>
+                    <li><strong>Signaturdaten:</strong> Bilddaten der Handschrift (HTML5-Canvas), die zur Verifizierung verschlüsselt auf unserem Server abgelegt werden.</li>
+                    <li><strong>Funktion:</strong> Speicherung von Einsatzzeiten und Schülernamen zur Erstellung von Leistungsnachweisen.</li>
                 </ul>
             </section>
 
             <section class="mb-4">
                 <h5 class="fw-bold">4. Cookies</h5>
-                <p>SignSync setzt <strong>ausschließlich technisch notwendige Session-Cookies</strong> ein. Diese dienen dazu, Sie während einer aktiven Sitzung als eingeloggten Nutzer zu identifizieren. Wir verwenden keine Statistik-, Marketing- oder Drittanbieter-Cookies.</p>
+                <p>SignSync setzt <strong>ausschließlich technisch notwendige Session-Cookies</strong> ein. Wir verwenden keine Statistik- oder Marketing-Cookies.</p>
             </section>
 
             <section class="mb-4 border-start border-success border-4 ps-3 bg-light py-2">
-                <h5 class="fw-bold text-success">5. Kontaktaufnahme</h5>
-                <p class="mb-0 small">Anfragen via E-Mail werden zur Bearbeitung und für den Fall von Anschlussfragen gespeichert. Die Rechtsgrundlage hierfür ist Art. 6 Abs. 1 lit. b (vorvertragliche Maßnahmen) oder lit. f (berechtigtes Interesse).</p>
-            </section>
-
-            <section class="mb-4">
-                <h5 class="fw-bold">6. Zweck der Verarbeitung</h5>
-                <p>Die Verarbeitung dient primär der Erstellung digitaler Leistungsnachweise in der Schulbegleitung, der rechtssicheren Archivierung von Einsatzzeiten sowie der Abrechnungsunterstützung für soziale Träger.</p>
-            </section>
-
-            <section class="mb-4">
-                <h5 class="fw-bold">7. Weitergabe von Daten & Empfänger</h5>
-                <p>Eine Weitergabe erfolgt ausschließlich an:</p>
+                <h5 class="fw-bold text-success">5. Rechtsgrundlagen der Verarbeitung</h5>
+                <p>Die Verarbeitung erfolgt auf Basis folgender Grundlagen:</p>
                 <ul>
-                    <li>Den jeweiligen <strong>Zahlungsdienstleister</strong> (Mollie) zur Abwicklung Ihres Abonnements.</li>
-                    <li>Behörden/Leistungsträger, jedoch <strong>nur durch den Nutzer selbst</strong> (Export-Funktion).</li>
-                    <li>Unseren <strong>Hosting-Provider</strong> im Rahmen der Auftragsverarbeitung.</li>
+                    <li><strong>Art. 6 Abs. 1 lit. b DSGVO:</strong> Erfüllung des Nutzungsvertrages bzw. Abonnements.</li>
+                    <li><strong>Art. 6 Abs. 1 lit. f DSGVO:</strong> Berechtigtes Interesse an der IT-Sicherheit und dem Schutz vor Missbrauch.</li>
+                    <li><strong>Art. 9 Abs. 2 lit. h DSGVO:</strong> Verarbeitung im Rahmen der Verwaltung von Sozialsystemen (Schulbegleitung).</li>
                 </ul>
             </section>
 
             <section class="mb-4">
+                <h5 class="fw-bold">6. Zweck der Verarbeitung</h5>
+                <p>Die Verarbeitung dient der Erstellung manipulationssicherer Leistungsnachweise. Jeder Beleg wird kryptografisch versiegelt, um die Anforderungen an die Revisionssicherheit zu erfüllen.</p>
+            </section>
+
+            <section class="mb-4">
+                <h5 class="fw-bold">7. Weitergabe von Daten & Zahlungsabwicklung</h5>
+                <p>Zahlungen werden über die <strong>Mollie B.V. (Niederlande)</strong> abgewickelt. Ein entsprechender Auftragsverarbeitungsvertrag (AVV) gemäß Art. 28 DSGVO liegt vor. Es werden nur die zur Zahlungsabwicklung zwingend erforderlichen Daten übermittelt.</p>
+            </section>
+
+            <section class="mb-4">
                 <h5 class="fw-bold">8. Auftragsverarbeitung & Subprozessoren</h5>
-                <p>Wir arbeiten mit folgenden Kern-Dienstleistern zusammen:</p>
-                <div class="table-responsive small">
-                    <table class="table table-bordered bg-white">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Anbieter</th>
-                                <th>Sitz</th>
-                                <th>Leistung</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>1blu AG</strong></td>
-                                <td>Berlin, DE</td>
-                                <td>Cloud-Hosting & Datenbankbetrieb</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Mollie B.V.</strong></td>
-                                <td>Amsterdam, NL</td>
-                                <td>Zahlungsabwicklung</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <p>Wir arbeiten mit der <strong>1blu AG (Berlin, DE)</strong> für das Hosting zusammen. Ein AVV gemäß Art. 28 DSGVO stellt sicher, dass Ihre Daten ausschließlich weisungsgebunden verarbeitet werden.</p>
             </section>
 
             <section class="mb-4 border-start border-danger border-4 ps-3 bg-light py-2">
                 <h5 class="fw-bold text-danger">9. Drittlandübermittlung</h5>
-                <p class="mb-0"><strong>SignSync verarbeitet Daten ausschließlich innerhalb der EU/EWR.</strong> Es findet keine Übermittlung in Drittstaaten (insb. USA) statt. Wir nutzen keine US-basierten Subprozessoren, wodurch Garantien wie Standardvertragsklauseln (SCC) oder das Data Privacy Framework aufgrund der rein europäischen Datenhaltung nicht erforderlich sind.</p>
+                <p class="mb-0"><strong>SignSync verarbeitet Daten ausschließlich innerhalb der EU/EWR.</strong> Ein Transfer in Drittstaaten (insb. USA) findet nicht statt.</p>
             </section>
 
             <section class="mb-4">
                 <h5 class="fw-bold">10. Speicherdauer</h5>
                 <ul>
-                    <li><strong>Server-Logs:</strong> Automatische Löschung nach 14 Tagen.</li>
-                    <li><strong>Vertragsdaten:</strong> Speicherung gemäß gesetzlicher Aufbewahrungsfristen (§ 147 AO, 10 Jahre).</li>
-                    <li><strong>Nutzungsdaten:</strong> Löschung unmittelbar nach Account-Deaktivierung, sofern keine gesetzlichen Pflichten entgegenstehen.</li>
+                    <li><strong>Server-Logs:</strong> 14 Tage.</li>
+                    <li><strong>Leistungsnachweise & Signaturen:</strong> Gemäß den steuer- und handelsrechtlichen Aufbewahrungspflichten für 10 Jahre (§ 257 HGB, § 147 AO).</li>
+                    <li><strong>Account-Daten:</strong> Bis zur Kündigung des Abos, sofern keine gesetzlichen Fristen entgegenstehen.</li>
                 </ul>
             </section>
 
             <section class="mb-4">
                 <h5 class="fw-bold">11. Ihre Rechte als betroffene Person</h5>
-                <p>Ihnen stehen die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch (Art. 15-21 DSGVO) zu. Bitte wenden Sie sich hierfür an info@signsync.de.</p>
+                <p>Ihnen stehen die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch (Art. 15-21 DSGVO) zu.</p>
             </section>
+
+            <div class="p-3 bg-light rounded border text-center mb-4">
+                <i class="bi bi-file-earmark-text me-2"></i>
+                Detaillierte technische Informationen finden Sie in unserem 
+                <a href="{{ url('/transparenz') }}" class="text-success fw-bold">Transparenzbericht</a>.
+            </div>
+
             <section class="mb-4 text-center">
                 <div class="p-3 bg-light rounded border">
                     <p class="mb-0 text-muted italic">
