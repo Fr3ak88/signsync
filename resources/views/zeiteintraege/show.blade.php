@@ -55,7 +55,13 @@
                 </div>
             @endif
         </div>
-        <div class="card-footer bg-white py-3 d-flex justify-content-end">
+       <div class="card-footer bg-white py-3 d-flex justify-content-between align-items-center">
+            {{-- Zurück-Link unten links --}}
+            <a href="/zeiteintraege" class="text-decoration-none text-muted small">
+                <i class="bi bi-arrow-left me-1"></i> Zurück zur Übersicht
+            </a>
+
+            {{-- Lösch-Button unten rechts --}}
             <form action="/zeiteintraege/{{ $eintrag->id }}" method="POST" onsubmit="return confirm('Eintrag wirklich löschen?')">
                 @csrf
                 @method('DELETE')
@@ -63,11 +69,6 @@
                     <i class="bi bi-trash me-1"></i> Eintrag löschen
                 </button>
             </form>
-        </div>
-        <div class="mb-3 d-flex justify-content-end">
-            <a href="/zeiteintraege" class="text-decoration-none text-muted small">
-                <i class="bi bi-arrow-left me-1"></i> Zurück
-            </a>
         </div>
     </div>
 </div>
