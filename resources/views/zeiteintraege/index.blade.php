@@ -43,7 +43,7 @@
                                 <td>{{ $eintrag->user->name ?? 'System' }}</td>
                                 <td>
                                     <span class="badge border text-dark fw-normal">
-                                        <i class="bi bi-mortarboard me-1"></i> {{ $eintrag->schueler->name ?? 'Unbekannt' }}
+                                        <i class="bi bi-mortarboard me-1"></i> {{ $eintrag->schueler->name ?? 'Interner Eintrag' }}
                                     </span>
                                 </td>
                                 <td>
