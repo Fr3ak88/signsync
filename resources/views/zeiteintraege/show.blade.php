@@ -61,7 +61,7 @@
                 </div>
             @endif
         </div>
-        <div class="card-footer bg-white py-3">
+        <div class="card-footer bg-white py-3 d-flex justify-content-end">
             <form action="/zeiteintraege/{{ $eintrag->id }}" method="POST" onsubmit="return confirm('Eintrag wirklich löschen?')">
                 @csrf
                 @method('DELETE')
