@@ -11,17 +11,6 @@
         </div>
     </div>
 
-    @if(!Auth::user()->avv_accepted_at)
-    <div class="alert alert-danger d-flex align-items-center shadow-sm border-0 mb-4" role="alert">
-        <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
-        <div>
-            <strong>Handlungsbedarf:</strong> Sie haben noch keinen Auftragsverarbeitungsvertrag (AVV) unterzeichnet. 
-            Um SignSync rechtssicher zu nutzen, ist dies gesetzlich zwingend erforderlich.
-            <a href="{{ route('admin.avv.show') }}" class="alert-link ms-2">Jetzt AVV prüfen & unterzeichnen</a>
-        </div>
-    </div>
-    @endif
-
     {{-- Titel Bereich --}}
     <div class="row mb-4 align-items-center">
         <div class="col-md-6">
