@@ -1,76 +1,115 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container my-5 py-4 bg-white shadow-sm rounded border text-start" style="max-width: 900px;">
-    <h1 class="fw-bold mb-4 border-bottom pb-3 text-dark">Auftragsverarbeitungsvertrag (AVV)</h1>
-    <p class="text-muted small mb-4">Gemäß Art. 28 Abs. 3 Datenschutz-Grundverordnung (DSGVO)</p>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 card border-0 shadow-lg p-5">
+            
+            <div class="text-center mb-5 border-bottom pb-4">
+                <h1 class="fw-bold text-success">Auftragsverarbeitungsvertrag (AVV)</h1>
+                <p class="text-muted">gemäß Art. 28 Abs. 3 Datenschutz-Grundverordnung (DSGVO)</p>
+            </div>
 
-    <section class="mb-4">
-        <h5 class="fw-bold">1. Gegenstand und Dauer der Verarbeitung</h5>
-        <p>Der Auftragnehmer (SignSync) stellt dem Auftraggeber (Nutzer/Firma) die SaaS-Lösung zur digitalen Mitarbeiterbegleitung und Zeiterfassung zur Verfügung. Im Rahmen dieser Bereitstellung verarbeitet der Auftragnehmer personenbezogene Daten im Auftrag des Auftraggebers. Die Laufzeit dieses Vertrages richtet sich nach der Laufzeit des Hauptvertrages (Abonnement).</p>
-    </section>
+            <div class="avv-content text-start small" style="line-height: 1.6;">
+                
+                <section class="mb-4">
+                    <h5 class="fw-bold">Zwischen</h5>
+                    <p class="mb-1"><strong>Dem Auftraggeber:</strong></p>
+                    <p class="border-start border-3 ps-3 italic">
+                        {{ $organization->company_name ?? $organization->name }}<br>
+                        {{ $organization->address ?? '[Anschrift]' }}
+                    </p>
+                    
+                    <h5 class="fw-bold mt-3">und</h5>
+                    <p class="mb-1"><strong>Dem Auftragnehmer:</strong></p>
+                    <p class="border-start border-3 ps-3 italic text-success">
+                        Fritzler-Solution, Eugen Fritzler<br>
+                        Ahlener Str. 107, 59073 Hamm
+                    </p>
+                </section>
 
-    <section class="mb-4">
-        <h5 class="fw-bold">2. Art und Zweck der Verarbeitung</h5>
-        <p>Die Verarbeitung umfasst folgende Datenkategorien:</p>
-        <ul class="list-group list-group-flush mb-3 border rounded">
-            <li class="list-group-item"><strong>Stammdaten Mitarbeiter:</strong> Name, E-Mail-Adresse, Einsatzbereiche.</li>
-            <li class="list-group-item"><strong>Leistungsdaten:</strong> Namen der betreuten Schüler, Einsatzzeiten, Tätigkeitsnachweise.</li>
-            <li class="list-group-item"><strong>Unterschriften:</strong> Digitale Signaturen zur Verifizierung der Einsätze.</li>
-        </ul>
-        <p>Der Zweck der Verarbeitung ist die Dokumentation von Betreuungsleistungen und die Erstellung von Leistungsnachweisen zur Abrechnung.</p>
-    </section>
+                <hr>
 
-    <section class="mb-4">
-        <h5 class="fw-bold">3. Pflichten des Auftragnehmers (SignSync)</h5>
-        <p>Der Auftragnehmer sichert zu:</p>
-        <ul>
-            <li>Daten ausschließlich auf Weisung des Auftraggebers zu verarbeiten.</li>
-            <li>Dass die zur Verarbeitung berechtigten Personen zur Vertraulichkeit verpflichtet wurden.</li>
-            <li>Geeignete technische und organisatorische Maßnahmen (TOM) nach Art. 32 DSGVO zu treffen (z. B. SSL-Verschlüsselung, regelmäßige Backups).</li>
-            <li>Den Auftraggeber bei Anfragen von Betroffenen (Auskunftsrecht etc.) nach Kräften zu unterstützen.</li>
-        </ul>
-    </section>
+                <section class="mb-4">
+                    <h6 class="fw-bold">§ 1 Gegenstand und Dauer der Vereinbarung</h6>
+                    <p>Der Auftragnehmer stellt dem Auftraggeber die Nutzung der SaaS-Applikation "SignSync" zur digitalen Dokumentation von Leistungsnachweisen zur Verfügung. Im Rahmen dieser Nutzung verarbeitet der Auftragnehmer personenbezogene Daten für den Auftraggeber im Sinne des Art. 4 Nr. 8 und Art. 28 DSGVO.</p>
+                </section>
 
-    <section class="mb-4">
-        <h5 class="fw-bold">4. Unterauftragsverhältnisse</h5>
-        <p>Der Auftraggeber genehmigt die Hinzuziehung folgender Sub-Unternehmer:</p>
-        <table class="table table-sm border mt-2">
-            <thead class="bg-light">
-                <tr>
-                    <th>Sub-Unternehmer</th>
-                    <th>Zweck</th>
-                    <th>Sitz</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Stripe Payments Europe, Ltd.</td>
-                    <td>Zahlungsabwicklung & Rechnungsstellung</td>
-                    <td>Irland (EU)</td>
-                </tr>
-                <tr>
-                    <td>1blu AG</td>
-                    <td>Server-Infrastruktur & Datenbanken</td>
-                    <td>Deutschland (EU)</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+                <section class="mb-4">
+                    <h6 class="fw-bold">§ 2 Art und Zweck der Verarbeitung</h6>
+                    <p>Die Verarbeitung umfasst folgende Datenkategorien:</p>
+                    <ul>
+                        <li><strong>Stammdaten:</strong> Namen der Schüler, Namen der Begleiter.</li>
+                        <li><strong>Einsatzdaten:</strong> Zeiten, Tätigkeiten, Förderbedarfe.</li>
+                        <li><strong>Signaturdaten:</strong> Handschriftliche Unterschriften (digitale Bilddaten).</li>
+                    </ul>
+                    <p>Der Kreis der Betroffenen umfasst Schüler, deren Erziehungsberechtigte sowie Mitarbeiter des Auftraggebers.</p>
+                </section>
 
-    <section class="mb-4">
-        <h5 class="fw-bold">5. Ort der Verarbeitung</h5>
-        <p>Die Datenverarbeitung findet grundsätzlich in Rechenzentren innerhalb der Europäischen Union (EU) statt. Eine Übermittlung in Drittstaaten erfolgt nur unter Einhaltung der gesetzlichen Bestimmungen (z. B. durch Zertifizierungen wie das Data Privacy Framework bei Stripe).</p>
-    </section>
+                <section class="mb-4">
+                    <h6 class="fw-bold">§ 3 Pflichten des Auftragnehmers</h6>
+                    <p>Der Auftragnehmer verarbeitet Daten ausschließlich auf Grundlage der getroffenen Vereinbarungen und nach dokumentierten Weisungen des Auftraggebers. Er gewährleistet, dass die zur Verarbeitung befugten Personen zur Vertraulichkeit verpflichtet wurden.</p>
+                </section>
 
-    <section class="mb-5 border-top pt-4">
-        <p class="small text-muted italic">
-            <strong>Hinweis zum Vertragsschluss:</strong> Dieser AVV wird wirksam, sobald der Auftraggeber bei der Registrierung die entsprechende Checkbox aktiviert und damit seine Zustimmung erklärt. Eine händische Unterschrift ist gemäß Art. 28 Abs. 9 DSGVO nicht erforderlich, sofern der Vertrag in einem elektronischen Format geschlossen wird.
-        </p>
-    </section>
-    
-    <div class="text-center">
-        <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Zurück</a>
+                <section class="mb-4 bg-light p-3 rounded border">
+                    <h6 class="fw-bold">§ 4 Datensicherheit (Art. 32 DSGVO)</h6>
+                    <p>Der Auftragnehmer setzt angemessene technische und organisatorische Maßnahmen um, insbesondere:</p>
+                    <ul>
+                        <li>Verschlüsselung der Daten (TLS 1.3 in transit, AES-256 at rest).</li>
+                        <li>Strikte Mandantentrennung auf Datenbankebene.</li>
+                        <li>Regelmäßige Backups und Desaster-Recovery-Pläne.</li>
+                        <li>Zugriffskontrollsysteme und Protokollierung.</li>
+                    </ul>
+                    <p>Details sind im <a href="{{ route('transparenz') }}" target="_blank">Transparenzbericht</a> des Auftragnehmers hinterlegt.</p>
+                </section>
+
+                <section class="mb-4">
+                    <h6 class="fw-bold">§ 5 Unterauftragsverhältnisse (Subprozessoren)</h6>
+                    <p>Der Auftraggeber genehmigt die Hinzuziehung folgender Subunternehmer:</p>
+                    <ol>
+                        <li><strong>1blu AG (Berlin, DE):</strong> Webhosting und Datenbankbetrieb.</li>
+                        <li><strong>Mollie B.V. (Amsterdam, NL):</strong> Zahlungsabwicklung.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h6 class="fw-bold">§ 6 Kontrollrechte und Mitwirkung</h6>
+                    <p>Der Auftragnehmer stellt dem Auftraggeber alle erforderlichen Informationen zum Nachweis der Einhaltung der in Art. 28 DSGVO genannten Pflichten zur Verfügung und ermöglicht Überprüfungen.</p>
+                </section>
+
+                <section class="mt-5 p-4 border rounded bg-white shadow-sm">
+                    <h5 class="fw-bold mb-3">Zustimmung und Vertragsabschluss</h5>
+                    @if($organization && $organization->avv_accepted_at)
+                        <div class="alert alert-success">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            Dieser Vertrag wurde am <strong>{{ $organization->avv_accepted_at->format('d.m.Y H:i') }}</strong> 
+                            von IP <strong>{{ $organization->avv_accepted_ip }}</strong> digital geschlossen.
+                        </div>
+                    @else
+                        <p>Durch Klicken auf den untenstehenden Button schließen Sie diesen AVV rechtssicher mit der Fritzler-Solution ab.</p>
+                        <form action="{{ route('admin.avv.accept') }}" method="POST">
+                            @csrf
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" name="acceptCheck" id="acceptCheck" required>
+                                <label class="form-check-label" for="acceptCheck">
+                                    Ich bin vertretungsberechtigt für die oben genannte Organisation und akzeptiere den AVV.
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-lg w-100 shadow">
+                                <i class="bi bi-pen me-2"></i> AVV jetzt rechtssicher unterzeichnen
+                            </button>
+                        </form>
+                    @endif
+                </section>
+
+            </div>
+
+            <div class="mt-5 text-center pt-3 border-top">
+                <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left"></i> Zurück zum Dashboard
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
