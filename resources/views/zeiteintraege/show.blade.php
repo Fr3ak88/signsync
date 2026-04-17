@@ -2,12 +2,6 @@
 
 @section('content')
 <div class="container">
-    <div class="mb-3">
-        <a href="/zeiteintraege" class="text-decoration-none text-muted small">
-            <i class="bi bi-arrow-left"></i> Zurück
-        </a>
-    </div>
-
     <div class="card border-0 shadow-sm">
         <div class="card-header bg-white py-3 d-flex justify-content-between">
             <h5 class="mb-0 fw-bold text-primary">Eintragsdetails #{{ $eintrag->id }}</h5>
@@ -69,6 +63,11 @@
                     <i class="bi bi-trash me-1"></i> Eintrag löschen
                 </button>
             </form>
+        </div>
+        <div class="mb-3 d-flex justify-content-end">
+            <a href="/zeiteintraege" class="text-decoration-none text-muted small">
+                <i class="bi bi-arrow-left me-1"></i> Zurück
+            </a>
         </div>
     </div>
 </div>
