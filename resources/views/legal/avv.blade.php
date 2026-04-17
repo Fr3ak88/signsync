@@ -60,7 +60,7 @@
                         <li>Regelmäßige Backups und Desaster-Recovery-Pläne.</li>
                         <li>Zugriffskontrollsysteme und Protokollierung.</li>
                     </ul>
-                    <p>Details sind im <a href="{{ route('transparenz') }}" target="_blank">Transparenzbericht</a> des Auftragnehmers hinterlegt.</p>
+                    <p>Details zu den technischen und organisatorischen Maßnahmen (TOM) sind in der <a href="{{ route('datenschutz') }}" target="_blank">Datenschutzerklärung</a> des Auftragnehmers hinterlegt.</p>
                 </section>
 
                 <section class="mb-4">
