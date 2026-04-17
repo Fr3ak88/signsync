@@ -8,7 +8,7 @@
 
             <section class="mb-4">
                 <h5 class="fw-bold">1. Datenschutz auf einen Blick</h5>
-                <p>Diese Datenschutzerklärung klärt Sie über die Art, den Umfang und Zweck der Verarbeitung von personenbezogenen Daten innerhalb unserer Applikation <strong>SignSync</strong> auf.</p>
+                <p>Diese Datenschutzerklärung klärt Sie über die Art, den Umfang und Zweck der Verarbeitung von personenbezogenen Daten innerhalb unserer SaaS-Applikation <strong>SignSync</strong> auf. Wir nehmen den Schutz Ihrer Daten und der Daten der betreuten Schüler sehr ernst und verzichten bewusst auf jegliches Tracking.</p>
             </section>
 
             <section class="mb-4">
@@ -22,56 +22,69 @@
                 </p>
             </section>
 
+            <section class="mb-4 border-start border-success border-4 ps-3 bg-light py-2">
+                <h5 class="fw-bold text-success">3. Hosting in Deutschland (1blu AG)</h5>
+                <p>Unsere Applikation wird bei der <strong>1blu AG, Stromstraße 1-5, 10551 Berlin</strong> gehostet.</p>
+                <ul>
+                    <li><strong>Serverstandort:</strong> Ausschließlich Deutschland.</li>
+                    <li><strong>Sicherheit:</strong> Die Datenverarbeitung erfolgt auf Basis eines Vertrages über Auftragsverarbeitung (AVV) gemäß Art. 28 DSGVO. Die Server der 1blu AG werden in hochsicheren Rechenzentren betrieben.</li>
+                </ul>
+            </section>
+
             <section class="mb-4">
-                <h5 class="fw-bold">3. Datenerfassung in SignSync</h5>
+                <h5 class="fw-bold">4. Datenerfassung in SignSync</h5>
+                <p>Wir verarbeiten folgende Datenkategorien zur Bereitstellung unserer Dienstleistung:</p>
                 <ul>
                     <li><strong>Benutzerdaten Firma:</strong> Firma, Name, Adresse und E-Mail des Unternehmens zur Account-Verwaltung.</li>
-                    <li><strong>Benutzerdaten Mitarbeiter:</strong> Name und E-Mail zur Account-Verwaltung.</li>
+                    <li><strong>Benutzerdaten Mitarbeiter:</strong> Name und E-Mail zur Account-Verwaltung und Authentifizierung.</li>
                     <li><strong>Einsatzdaten:</strong> Namen der betreuten Schüler, Zeiten und Tätigkeitsnachweise.</li>
-                    <li><strong>Digitale Signatur:</strong> Grafische Unterschriften der Schulverantwortlichen zur Verifizierung der Einsätze.</li>
+                    <li><strong>Sensible Daten (Art. 9 DSGVO):</strong> Da im Rahmen der Schulbegleitung indirekt Gesundheitsdaten oder Förderbedarfe dokumentiert werden, unterliegen diese einer besonderen Schutzstufe (siehe Punkt 6).</li>
+                    <li><strong>Digitale Signatur:</strong> Grafische Unterschriften zur Verifizierung der Einsätze.</li>
                     <li><strong>Technische Daten:</strong> IP-Adresse, Browsertyp und Betriebssystem (Server-Logfiles) zur Sicherstellung des Betriebs und zur Missbrauchserkennung.</li>
                 </ul>
-                <p>Diese Daten dienen ausschließlich der Erstellung von Leistungsnachweisen und der Abrechnung der geleisteten Stunden.</p>
             </section>
 
             <section class="mb-4">
-                <h5 class="fw-bold">4. Zahlungsabwicklung über Mollie</h5>
-                    <p>
-                        Wir bieten auf unserer Webseite die Bezahlung via den Zahlungsdienstleister <strong>Mollie</strong> an. 
-                        Anbieter ist die <em>Mollie B.V., Keizersgracht 126, 1015 CW Amsterdam, Niederlande</em> (nachfolgend „Mollie“).
-                    </p>
-                    <ul>
-                    <li><strong>Art der Daten:</strong> Wenn Sie sich für ein kostenpflichtiges Abonnement entscheiden, werden die von Ihnen angegebenen Zahlungsdaten (z. B. Kreditkartendaten, Bankverbindung, gewählte Zahlungsmethode) sowie Rechnungsdaten (Name, E-Mail-Adresse) an Mollie übermittelt.</li>
-                    <li><strong>Zweck der Verarbeitung:</strong> Die Übermittlung erfolgt ausschließlich zum Zwecke der Zahlungsabwicklung und zur Durchführung regelmäßiger Lastschriften bzw. Abbuchungen im Rahmen Ihres Abonnements.</li>
-                    <li><strong>Rechtsgrundlage:</strong> Die Weitergabe Ihrer Daten an Mollie erfolgt auf Grundlage von <strong>Art. 6 Abs. 1 lit. b DSGVO</strong> (Vertragserfüllung).</li>
-                    <li><strong>Datensicherheit:</strong> Mollie verarbeitet Ihre Daten innerhalb der Europäischen Union und hält höchste Sicherheitsstandards für Zahlungsdaten (PCI-DSS-Konformität) ein.</li>
-                    </ul>
-
-                    <p class="mt-3 small text-muted">
-                        Details hierzu finden Sie in der Datenschutzerklärung von Mollie unter: 
-                        <a href="https://www.mollie.com/de/privacy" target="_blank" class="text-decoration-none">https://www.mollie.com/de/privacy</a>
-                    </p>
+                <h5 class="fw-bold">5. Technische Sicherheit und Versiegelung</h5>
+                <ul>
+                    <li><strong>SSL-/TLS-Verschlüsselung:</strong> SignSync nutzt eine durchgehende Verschlüsselung zum Schutz vertraulicher Inhalte während der Übertragung.</li>
+                    <li><strong>Digitale Versiegelung:</strong> Jeder abgeschlossene Beleg wird mittels eines <strong>SHA-256 Hash-Verfahrens</strong> mit einer eindeutigen Sicherheits-ID versehen. Dies stellt die Integrität sicher; nachträgliche Manipulationen werden dadurch sofort erkennbar.</li>
+                    <li><strong>Geschützte Ablage:</strong> Generierte PDF-Belege werden in einem nicht-öffentlichen Bereich des Servers gespeichert (Private Storage) und sind nur für authentifizierte Nutzer zugänglich.</li>
+                </ul>
             </section>
 
             <section class="mb-4">
-                <h5 class="fw-bold">5. Rechtsgrundlagen</h5>
-                <p>Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) sowie Art. 9 Abs. 2 lit. h DSGVO, sofern Gesundheitsdaten im Rahmen der Schulbegleitung berührt werden.</p>
+                <h5 class="fw-bold">6. Rechtsgrundlagen</h5>
+                <p>Die Verarbeitung erfolgt auf Grundlage von:</p>
+                <ul>
+                    <li><strong>Art. 6 Abs. 1 lit. b DSGVO</strong> (Vertragserfüllung).</li>
+                    <li><strong>Art. 9 Abs. 2 lit. h DSGVO</strong> i.V.m. § 22 Abs. 1 Nr. 1 lit. b BDSG, sofern Gesundheitsdaten im Rahmen der Schulbegleitung zur Dokumentation gegenüber Leistungsträgern berührt werden.</li>
+                </ul>
             </section>
 
             <section class="mb-4">
-                <h5 class="fw-bold">6. SSL- bzw. TLS-Verschlüsselung</h5>
-                <p>Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie zum Beispiel Zeiterfassungen oder Unterschriften, die Sie an uns als Seitenbetreiber senden, eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://“ auf „https://“ wechselt und an dem Schloss-Symbol in Ihrer Browserzeile.</p>
+                <h5 class="fw-bold">7. Zahlungsabwicklung über Mollie</h5>
+                <p>
+                    Wir bieten die Bezahlung via <strong>Mollie</strong> an. 
+                    Anbieter ist die <em>Mollie B.V., Keizersgracht 126, 1015 CW Amsterdam, Niederlande</em>.
+                </p>
+                <ul>
+                    <li><strong>Art der Daten:</strong> Zahlungsdaten (z. B. Bankverbindung, Kreditkarte) sowie Rechnungsdaten (Name, E-Mail).</li>
+                    <li><strong>Zweck:</strong> Abwicklung der Abonnement-Zahlungen auf Grundlage von <strong>Art. 6 Abs. 1 lit. b DSGVO</strong>.</li>
+                </ul>
+                <p class="mt-2 small text-muted">
+                    Details unter: <a href="https://www.mollie.com/de/privacy" target="_blank" class="text-decoration-none">https://www.mollie.com/de/privacy</a>
+                </p>
             </section>
 
-            <section class="mb-4 border-start border-success border-4 ps-3 bg-light py-2">
-                <h5 class="fw-bold text-success">7. Verzicht auf Analyse-Tools und Social Media</h5>
-                <p>Datenschutz hat bei uns höchste Priorität. Wir verwenden auf dieser Webseite <strong>keine Analyse-Tools</strong> (wie z. B. Google Analytics) und <strong>keine Social-Media-Plugins</strong> oder Tracking-Pixel.</p>
-                <p>Ihr Besuch auf SignSync wird nicht durch Drittanbieter ausgewertet. Es findet kein Datentransfer an Werbenetzwerke oder soziale Netzwerke statt. Wir erfassen lediglich technisch notwendige Daten, die für den stabilen Betrieb und die rechtssichere Zeiterfassung zwingend erforderlich sind.</p>
+            <section class="mb-4 bg-light p-3 border-start border-4 border-success">
+                <h5 class="fw-bold">8. Verzicht auf Analyse-Tools und Social Media</h5>
+                <p>Wir verwenden <strong>keine Analyse-Tools</strong> (wie Google Analytics) und <strong>keine Social-Media-Plugins</strong> oder Tracking-Pixel. Ihr Besuch auf SignSync wird nicht durch Drittanbieter ausgewertet.</p>
             </section>
 
             <section class="mb-4">
-                <h5 class="fw-bold">8. Ihre Rechte</h5>
-                <p>Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Daten verarbeitung sowie ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten.</p>
+                <h5 class="fw-bold">9. Ihre Rechte</h5>
+                <p>Sie haben jederzeit das Recht auf unentgeltliche Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16 DSGVO), Löschung (Art. 17 DSGVO) oder Einschränkung der Verarbeitung Ihrer Daten sowie das Recht auf Datenübertragbarkeit (Art. 20 DSGVO).</p>
             </section>
             
             <section class="mb-4 text-center">
