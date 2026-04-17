@@ -104,7 +104,7 @@
                                 </label>
                             </div>
                             <button type="submit" class="btn btn-success btn-lg w-100 shadow">
-                                <i class="bi bi-pen me-2"></i> AVV jetzt rechtssicher unterzeichnen
+                                <i class="bi bi-pen me-2"></i> AVV jetzt zustimmen und Vertrag abschließen
                             </button>
                         </form>
                     @endif
