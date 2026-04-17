@@ -26,24 +26,32 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <p class="text-muted mb-1">Startzeit</p>
                     <p class="fw-bold">{{ \Carbon\Carbon::parse($eintrag->start_zeit)->format('H:i') }} Uhr</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <p class="text-muted mb-1">Endzeit</p>
                     <p class="fw-bold">{{ \Carbon\Carbon::parse($eintrag->ende_zeit)->format('H:i') }} Uhr</p>
                 </div>
-                <div class="col-md-4">
-                    <p class="text-muted mb-1">Dauer</p>
-                <p class="fw-bold">
-                    @php
-                        $start = \Carbon\Carbon::parse($eintrag->start_zeit);
-                        $ende = \Carbon\Carbon::parse($eintrag->ende_zeit);
-                        $stundenDezimal = $start->diffInMinutes($ende) / 60;
-                    @endphp
-                    {{ number_format($stundenDezimal, 2, ',', '.') }} Std.
-                </p>
+                <div class="col-md-3">
+                    <p class="text-muted mb-1">Pause</p>
+                    <p class="fw-bold text-warning">{{ $eintrag->pause ?? 0 }} Min.</p>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-muted mb-1">Dauer (Netto)</p>
+                    <p class="fw-bold text-success">
+                        @php
+                            $start = \Carbon\Carbon::parse($eintrag->start_zeit);
+                            $ende = \Carbon\Carbon::parse($eintrag->ende_zeit);
+                            $pausenMinuten = $eintrag->pause ?? 0;
+                            
+                            // Brutto-Minuten minus Pause = Netto-Stunden
+                            $nettoMinuten = $start->diffInMinutes($ende) - $pausenMinuten;
+                            $stundenDezimal = max(0, $nettoMinuten / 60); // max(0, ...) verhindert negative Werte
+                        @endphp
+                        {{ number_format($stundenDezimal, 2, ',', '.') }} Std.
+                    </p>
                 </div>
             </div>
             @if($eintrag->notiz)
