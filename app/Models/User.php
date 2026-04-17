@@ -36,6 +36,7 @@ class User extends Authenticatable
         'has_active_subscription', 
         'mollie_customer_id',    
         'avv_accepted_at',
+        'avv_accepted_ip',
     ];
 
     /**
