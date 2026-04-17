@@ -36,7 +36,6 @@ Route::get('/home', function () {
 // --- Öffentliche Seiten ---
 Route::get('/impressum', function () { return view('impressum'); })->name('impressum');
 Route::get('/datenschutz', function () { return view('datenschutz'); })->name('datenschutz');
-Route::view('/transparenz', 'transparenz')->name('transparenz');
 Route::get('/preise', [SubscriptionController::class, 'index'])->name('plans.index');
 Route::post('/webhooks/mollie', [App\Http\Controllers\MollieWebhookController::class, 'handle'])
     ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class])

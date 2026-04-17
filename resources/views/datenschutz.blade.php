@@ -183,8 +183,6 @@
                 </p>
             </section>
 
-            <section class="mb-5"> <h5 class="fw-bold text-uppercase small text-muted border-bottom pb-2">6. Ihre Rechte & Kontakt</h5> <p class="small">Sie haben Rechte auf Auskunft, Löschung, Berichtigung und Datenübertragbarkeit. Bitte senden Sie Anfragen an <strong>info@signsync.de</strong>.</p> <div class="p-3 bg-light border border-success rounded text-center mt-4"> <p class="mb-2 small fw-bold text-success">Interessiert an weiteren technischen Details?</p> <a href="{{ route('transparenz') }}" class="btn btn-success btn-sm px-4 shadow-sm">Zum technischen Transparenzbericht</a> </div> </section>
-
             {{-- Footer --}}
             <div class="mt-4 text-center border-top pt-3">
                 <a href="{{ url('/') }}" class="btn btn-outline-secondary btn-sm">
