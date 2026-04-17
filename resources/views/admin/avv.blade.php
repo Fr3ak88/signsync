@@ -87,7 +87,7 @@
                         </div>
                     @else
                         <p>Durch Klicken auf den untenstehenden Button schließen Sie diesen AVV rechtssicher mit der Fritzler-Solution ab.</p>
-                        <form action="{{ route('admin.avv.show') }}" method="POST">
+                        <form action="{{ route('admin.avv.accept') }}" method="POST">
                             @csrf
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="checkbox" id="acceptCheck" required>
