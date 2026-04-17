@@ -118,6 +118,10 @@ Route::middleware(['auth'])->group(function () {
         // ABO
         Route::post('/select-plan', [SubscriptionController::class, 'storePlan'])->name('plans.store');
         Route::post('/cancel-subscription', [SubscriptionController::class, 'cancel'])->name('plans.cancel');
+
+        // AVV
+        Route::get('/admin/avv', [LegalController::class, 'showAvv'])->name('admin.avv.show');
+        Route::post('/admin/avv/accept', [LegalController::class, 'acceptAvv'])->name('admin.avv.accept');
     });
 
     }); // Ende 'has.plan'
