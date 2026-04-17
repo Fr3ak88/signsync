@@ -36,9 +36,14 @@
                 </div>
                 <div class="col-md-4">
                     <p class="text-muted mb-1">Dauer</p>
-                    <p class="fw-bold text-success">
-                        {{ \Carbon\Carbon::parse($eintrag->start_zeit)->diffInMinutes($eintrag->ende_zeit) }} Min.
-                    </p>
+                <p class="fw-bold">
+                    @php
+                        $start = \Carbon\Carbon::parse($eintrag->start_zeit);
+                        $ende = \Carbon\Carbon::parse($eintrag->ende_zeit);
+                        $stundenDezimal = $start->diffInMinutes($ende) / 60;
+                    @endphp
+                    {{ number_format($stundenDezimal, 2, ',', '.') }} Std.
+                </p>
                 </div>
             </div>
             @if($eintrag->notiz)
