@@ -90,7 +90,7 @@
                             </tbody>
                     </table>
                 </div>
-                <p class="small text-success mt-2"><i class="bi bi-info-circle me-1"></i> <strong>Enterprise-Status:</strong> Derzeit findet kein Datentransfer in Drittländer (insb. USA) statt.</p>
+                <p class="small text-success mt-2"><i class="bi bi-info-circle me-1"></i> Derzeit findet kein Datentransfer in Drittländer (insb. USA) statt.</p>
             </section>
 
             <section class="mb-5">
