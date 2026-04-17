@@ -91,7 +91,7 @@
                 </div>
             </section>
             <div class="mt-4 text-center border-top pt-3">
-                <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm">
+                <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left"></i> Zurück
                 </a>
             </div>
