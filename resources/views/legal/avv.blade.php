@@ -18,8 +18,10 @@
                     <p class="border-start border-3 ps-3 italic">
                     {{ $organization->company ?? $organization->name }}<br>
     
-                    @if(!empty($organization->address))
-                        {!! nl2br(e($organization->address)) !!}
+                    @if($organization->street)
+                    {{ $organization->street }} {{ $organization->house_number }}<br>
+                    {{ $organization->zip_code }} {{ $organization->city }}<br>
+                    {{ $organization->country ?? 'Deutschland' }}
                     @else
                     <span class="text-danger small">[Bitte Adresse im Profil hinterlegen]</span>
                     @endif

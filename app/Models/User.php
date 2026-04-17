@@ -92,4 +92,8 @@ class User extends Authenticatable
         // um das Passwort-Reset-Token in deinem Design zu senden.
         \Mail::to($this->email)->send(new EmployeeInvitationMail($this->name, $url));
     }
+    public function getFullAddressAttribute()
+    {
+        return "{$this->street} {$this->house_number}, {$this->zip_code} {$this->city}";
+    }
 }
