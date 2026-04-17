@@ -30,6 +30,7 @@
                     <h5 class="fw-bold mt-3">und</h5>
                     <p class="mb-1"><strong>Dem Auftragnehmer:</strong></p>
                     <p class="border-start border-3 ps-3 italic text-success">
+                        SignSync.de by<br>
                         Fritzler-Solution, Eugen Fritzler<br>
                         Ahlener Str. 107, 59073 Hamm
                     </p>
