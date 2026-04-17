@@ -21,7 +21,7 @@ class LegalController extends Controller
         // Falls deine Organisation-Logik anders ist, passe dies an (z.B. $user->organization)
         $organization = $user; 
 
-        return view('legal.avv', compact('organization'));
+        return view('legal.avv', ['organization' => $user]);
     }
 
     /**

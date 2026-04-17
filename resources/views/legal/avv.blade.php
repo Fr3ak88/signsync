@@ -16,8 +16,13 @@
                     <h5 class="fw-bold">Zwischen</h5>
                     <p class="mb-1"><strong>Dem Auftraggeber:</strong></p>
                     <p class="border-start border-3 ps-3 italic">
-                        {{ $organization->company_name ?? $organization->name }}<br>
-                        {{ $organization->address ?? '[Anschrift]' }}
+                    {{ $organization->company ?? $organization->name }}<br>
+    
+                    @if(!empty($organization->address))
+                        {!! nl2br(e($organization->address)) !!}
+                    @else
+                    <span class="text-danger small">[Bitte Adresse im Profil hinterlegen]</span>
+                    @endif
                     </p>
                     
                     <h5 class="fw-bold mt-3">und</h5>
