@@ -120,11 +120,11 @@
                 </table>
             </div>
         </div>
-        <div class="mt-4">
+    </div>
+            <div class="mt-4">
         <a href="{{ route('dashboard') }}" class="btn btn-light border shadow-sm px-4">
             <i class="bi bi-arrow-left me-2"></i> Zurück zum Dashboard
         </a>
-    </div>
     </div>
 </div>
 
