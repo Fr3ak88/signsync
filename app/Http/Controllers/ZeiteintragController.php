@@ -28,7 +28,9 @@ class ZeiteintragController extends Controller
                   ->whereMonth('start_zeit', $date->month);
         }
 
-        
+        if ($request->filled('typ')) {
+            $query->where('typ', $request->typ);
+        }
 
         if ($user->role === 'admin') {
             $query->whereHas('user', function($q) use ($user) {
