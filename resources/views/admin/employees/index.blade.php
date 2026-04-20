@@ -76,11 +76,14 @@
                                             <a href="{{ route('admin.employees.edit', $employee->id) }}" class="btn btn-sm btn-outline-secondary" title="Bearbeiten">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-                                            <form action="{{ route('admin.employees.destroy', $employee->id) }}" method="POST" class="d-inline" 
-                                                  onsubmit="return confirm('Mitarbeiter wirklich deaktivieren? Der Login wird gesperrt, Zeiteinträge bleiben erhalten.');">
+                                            <form action="{{ route('admin.employees.destroy', $employee->id) }}" method="POST" class="d-inline delete-form">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Deaktivieren">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-sm btn-outline-danger btn-delete-employee"
+                                                    title="Deaktivieren"
+                                                    data-employee-name="{{ $employee->user->name ?? 'Diesen Mitarbeiter' }}">
                                                     <i class="bi bi-person-x"></i>
                                                 </button>
                                             </form>
@@ -109,4 +112,51 @@
         </a>
     </div>
 </div>
+<div class="modal fade" id="deleteEmployeeModal" tabindex="-1" aria-labelledby="deleteEmployeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text-danger" id="deleteEmployeeModalLabel">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>Mitarbeiter deaktivieren
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-2 fw-semibold">Möchtest du <span id="deleteEmployeeName">diesen Mitarbeiter</span> wirklich deaktivieren?</p>
+                <p class="text-muted small mb-0">
+                    Der Login wird gesperrt, vorhandene Zeiteinträge bleiben erhalten.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Abbrechen</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteEmployee">
+                    <i class="bi bi-person-x me-1"></i>Ja, deaktivieren
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let selectedForm = null;
+        const modalElement = document.getElementById('deleteEmployeeModal');
+        const deleteModal = new bootstrap.Modal(modalElement);
+        const employeeNameEl = document.getElementById('deleteEmployeeName');
+        const confirmBtn = document.getElementById('confirmDeleteEmployee');
+
+        document.querySelectorAll('.btn-delete-employee').forEach(button => {
+            button.addEventListener('click', function () {
+                selectedForm = this.closest('form');
+                employeeNameEl.textContent = this.dataset.employeeName || 'diesen Mitarbeiter';
+                deleteModal.show();
+            });
+        });
+
+        confirmBtn.addEventListener('click', function () {
+            if (selectedForm) {
+                selectedForm.submit();
+            }
+        });
+    });
+</script>
 @endsection
