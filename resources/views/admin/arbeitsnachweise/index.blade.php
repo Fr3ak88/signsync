@@ -1,15 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-dark mb-0">
-            <i class="bi bi-clipboard-check-fill text-info me-2"></i>Status Arbeitsnachweise
-        </h2>
-        <a href="{{ route('dashboard') }}" class="btn btn-light border shadow-sm px-4">
-            <i class="bi bi-arrow-left me-2"></i>Zurück zum Dashboard
-        </a>
-    </div>
+<div class="mb-4">
+    <h2 class="fw-bold text-dark mb-0">
+        <i class="bi bi-clipboard-check-fill text-info me-2"></i>Status Arbeitsnachweise
+    </h2>
+</div>
 
     {{-- Filter-Sektion --}}
     <div class="card border-0 shadow-sm mb-4">
@@ -125,7 +121,11 @@
         </div>
     </div>
 </div>
-
+<div class="mt-4 d-flex justify-content-start">
+    <a href="{{ route('dashboard') }}" class="btn btn-light border shadow-sm px-4">
+        <i class="bi bi-arrow-left me-2"></i>Zurück zum Dashboard
+    </a>
+</div>
 <style>
     .animate-pulse { animation: pulse 2s infinite; }
     @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
