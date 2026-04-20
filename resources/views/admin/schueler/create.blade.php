@@ -34,7 +34,7 @@
 
                         <div class="row mb-4">
                             <div class="col-md-6">
-                                <label for="birth_date" class="form-label fw-bold">Geburtsdatum</label>
+                                <label for="birth_date" class="form-label fw-bold">Geburtsdatum<small class="text-muted fw-normal" style="font-size: 0.75rem; vertical-align: top;">(optional)</small></label>
                                 <input type="date" 
                                        name="birth_date" 
                                        id="birth_date" 
