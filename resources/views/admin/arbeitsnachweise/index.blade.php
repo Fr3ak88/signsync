@@ -120,13 +120,14 @@
                 </table>
             </div>
         </div>
+        <div class="mt-4">
+        <a href="{{ route('dashboard') }}" class="btn btn-light border shadow-sm px-4">
+            <i class="bi bi-arrow-left me-2"></i> Zurück zum Dashboard
+        </a>
+    </div>
     </div>
 </div>
-<div class="mt-4 d-flex justify-content-start">
-        <a href="{{ route('dashboard') }}" class="btn btn-light border shadow-sm px-4">
-            <i class="bi bi-arrow-left me-2"></i>Zurück zum Dashboard
-        </a>
-</div>
+
 <style>
     .animate-pulse { animation: pulse 2s infinite; }
     @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
