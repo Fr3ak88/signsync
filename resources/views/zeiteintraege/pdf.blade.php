@@ -66,7 +66,6 @@
             <td style="width: 50%;">
                 <span class="label">Mitarbeiter</span><br>
                 <span class="value">{{ $user->name }}</span><br>
-                <small>Personal-ID: #{{ $user->id }}</small>
             </td>
             <td style="width: 50%; text-align: right;">
                 <span class="label">Träger</span><br>
@@ -76,7 +75,7 @@
         <tr>
             <td colspan="2" style="padding-top: 14px;">
                 <span class="label">Schule</span><br>
-                <span class="value">{{ $schule->school_name ?? 'N/A' }}</span>
+                <span class="value">{{ $eintrag->schueler->school_name ?? 'N/A' }}</span>
             </td>
         </tr>
     </table>

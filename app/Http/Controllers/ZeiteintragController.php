@@ -398,4 +398,9 @@ $abschluss->update([
         if (Auth::user()->role !== 'admin' && $eintrag->user_id !== Auth::id()) { abort(403); }
         return view('zeiteintraege.show', compact('eintrag'));
     }
+
+    public function schueler()
+    {
+    return $this->belongsTo(Schueler::class, 'schueler_id');
+    }
 }

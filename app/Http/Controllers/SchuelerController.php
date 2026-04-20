@@ -103,4 +103,9 @@ class SchuelerController extends Controller
         return redirect()->route('admin.schueler.index')
                          ->with('success', 'Schüler wurde gelöscht.');
     }
+
+    public function schule()
+    {
+    return $this->belongsTo(Schule::class, 'schule_id');
+    }
 }
