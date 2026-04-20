@@ -64,13 +64,17 @@
     <table class="info-table">
         <tr>
             <td style="width: 50%;">
-                <span class="label">Mitarbeiter / Begleitkraft</span><br>
+                <span class="label">Mitarbeiter</span><br>
                 <span class="value">{{ $user->name }}</span><br>
                 <small>Personal-ID: #{{ $user->id }}</small>
             </td>
             <td style="width: 50%; text-align: right;">
-                <span class="label">Träger / Einrichtung</span><br>
+                <span class="label">Träger</span><br>
                 <span class="value">{{ $user->company ?? 'SignSync Begleitdienst' }}</span>
+            </td>
+            <td style="width: 50%; padding-top: 14px;">
+                <span class="label">Schule</span><br>
+                <span class="value">{{ $schule->name ?? 'N/A' }}</span>
             </td>
         </tr>
     </table>
@@ -128,7 +132,7 @@
             </div>
             <div class="signature-line">
                 <strong>{{ $user->name }}</strong><br>
-                <small>Unterschrift Begleitkraft</small>
+                <small>Unterschrift Mitarbeiter</small>
             </div>
         </td>
 
@@ -140,12 +144,12 @@
                 @if($abschluss && $abschluss->schule_signatur)
                     <img src="{{ $abschluss->schule_signatur }}" class="sig-image">
                 @else
-                    <div style="padding-top: 35px; color: #ddd;">(Stempel / Unterschrift)</div>
+                    <div style="padding-top: 35px; color: #ddd;">(Schule Unterschrift)</div>
                 @endif
             </div>
             <div class="signature-line">
                 <strong>{{ $abschluss->schule_unterzeichner ?? '............................' }}</strong><br>
-                <small>Bestätigung Schule / Einrichtung</small>
+                <small>Unterschrift Schule / Einrichtung</small>
             </div>
         </td>
     </tr>
