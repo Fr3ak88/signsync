@@ -15,7 +15,7 @@
             </p>
         </div>
     </div>
-        @if(!Auth::user()->avv_accepted_at)
+    @if(Auth::user()->role === 'admin' && !Auth::user()->avv_accepted_at)
     <div class="alert alert-danger d-flex align-items-center shadow-sm border-0 mb-4" role="alert">
         <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
         <div>
