@@ -61,7 +61,7 @@
                             <label class="form-label small fw-bold text-muted text-uppercase">Typ</label>
                             <select name="typ" class="form-select border-2">
                                 <option value="">Alle Einträge</option>
-                                <option value="begleitung" {{ request('typ') == 'begleitung' ? 'selected' : '' }}>Schülerbegleitung (Extern)</option>
+                                <option value="extern" {{ request('typ') == 'extern' ? 'selected' : '' }}>Schülerbegleitung (Extern)</option>
                                 <option value="arbeit" {{ request('typ') == 'arbeit' ? 'selected' : '' }}>Büro/Intern (Intern)</option>
                             </select>
                         </div>

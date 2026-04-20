@@ -29,7 +29,11 @@ class ZeiteintragController extends Controller
         }
 
         if ($request->filled('typ')) {
-            $query->where('typ', $request->typ);
+            if ($request->typ === 'extern') {
+                $query->whereIn('typ', ['begleitung', 'leistung']);
+            } elseif ($request->typ === 'arbeit') {
+                $query->where('typ', 'arbeit');
+            }
         }
 
         if ($user->role === 'admin') {
