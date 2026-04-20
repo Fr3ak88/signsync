@@ -74,7 +74,7 @@
             </td>
             <td style="width: 50%; padding-top: 14px;">
                 <span class="label">Schule</span><br>
-                <span class="value">{{ $schule->name ?? 'N/A' }}</span>
+                <span class="value">{{ $schule->school_name ?? 'N/A' }}</span>
             </td>
         </tr>
     </table>
