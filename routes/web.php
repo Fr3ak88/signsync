@@ -166,18 +166,18 @@ Route::middleware(['auth'])->group(function () {
 
     // --- ADMIN BEREICH (Mitarbeiter & Positionen) ---
     Route::prefix('admin')->group(function () {
-        // Mitarbeiter
-        Route::get('/employees', [EmployeeController::class, 'index']);
-        Route::get('/employees/create', [EmployeeController::class, 'create'])->name('admin.employees.create');
-        Route::post('/employees', [EmployeeController::class, 'store']);
-        Route::get('/employees/{id}/edit', [EmployeeController::class, 'edit']);
-        Route::put('/employees/{id}', [EmployeeController::class, 'update']);
-        Route::delete('/employees/{id}', [EmployeeController::class, 'destroy']);
+    // Mitarbeiter
+    Route::get('/employees', [EmployeeController::class, 'index'])->name('admin.employees.index');
+    Route::get('/employees/create', [EmployeeController::class, 'create'])->name('admin.employees.create');
+    Route::post('/employees', [EmployeeController::class, 'store'])->name('admin.employees.store');
+    Route::get('/employees/{id}/edit', [EmployeeController::class, 'edit'])->name('admin.employees.edit');
+    Route::put('/employees/{id}', [EmployeeController::class, 'update'])->name('admin.employees.update');
+    Route::delete('/employees/{id}', [EmployeeController::class, 'destroy'])->name('admin.employees.destroy');
 
-        // Positionen
-        Route::get('/positions', [PositionController::class, 'index']);
-        Route::post('/positions', [PositionController::class, 'store']);
-        Route::delete('/positions/{id}', [PositionController::class, 'destroy']);
+    // Positionen
+    Route::get('/positions', [PositionController::class, 'index'])->name('admin.positions.index');
+    Route::post('/positions', [PositionController::class, 'store'])->name('admin.positions.store');
+    Route::delete('/positions/{id}', [PositionController::class, 'destroy'])->name('admin.positions.destroy');
     });
 
     // --- MITARBEITER BEREICH (Zeiteinträge) ---
