@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'is_superadmin' => \App\Http\Middleware\IsSuperAdmin::class,
             'has.plan' => \App\Http\Middleware\EnsureHasSubscription::class,
+            'avv.accepted' => \App\Http\Middleware\EnsureAvvIsAccepted::class,
         ]);
 
         // 2. CSRF für Mollie Webhook deaktivieren 

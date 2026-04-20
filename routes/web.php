@@ -83,11 +83,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mein-archiv', [WorktimeController::class, 'archiv'])->name('monatsabschluss.archiv');
 
     // --- FIRMEN-ADMIN BEREICH ---
-    // Hier lag der Fehler: 'admin' Prefix war doppelt gemoppelt
-    Route::prefix('admin')->group(function () {
-        // Zentrale Überwachung der Arbeitsnachweise (Offen vs. Abgeschlossen)
+   Route::middleware(['auth', 'avv.accepted'])->prefix('admin')->group(function () {
+    
+        // Zentrale Überwachung der Arbeitsnachweise
         Route::get('/arbeitsnachweise', [ArbeitsnachweisController::class, 'index'])->name('admin.arbeitsnachweise.index');
-        Route::get('/admin/arbeitsnachweise/details/{user}', [ArbeitsnachweisController::class, 'show'])->name('admin.arbeitsnachweise.show');
+        // Korrigiert: Pfad war /admin/admin/... -> jetzt /admin/arbeitsnachweise/details/
+        Route::get('/arbeitsnachweise/details/{user}', [ArbeitsnachweisController::class, 'show'])->name('admin.arbeitsnachweise.show');
 
         // Mitarbeiter Verwaltung
         Route::get('/employees', [EmployeeController::class, 'index'])->name('admin.employees.index');
@@ -111,19 +112,22 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/schueler/{id}', [SchuelerController::class, 'update'])->name('admin.schueler.update');
         Route::delete('/schueler/{id}', [SchuelerController::class, 'destroy'])->name('admin.schueler.destroy');
 
-        // Archiv (Korrigiert: Kein doppeltes 'admin' mehr)
+        // Archiv
         Route::get('/archive', [ArchiveController::class, 'index'])->name('admin.archive.index');
         Route::get('/archive/download/{id}', [ArchiveController::class, 'download'])->name('admin.archive.download');
-        Route::post('/archive/{id}/cancel', [App\Http\Controllers\ArbeitsnachweisController::class, 'cancel'])->name('admin.archive.cancel');
+        Route::post('/archive/{id}/cancel', [ArbeitsnachweisController::class, 'cancel'])->name('admin.archive.cancel');
 
         // ABO
         Route::post('/select-plan', [SubscriptionController::class, 'storePlan'])->name('plans.store');
         Route::post('/cancel-subscription', [SubscriptionController::class, 'cancel'])->name('plans.cancel');
+        });
 
-        // AVV
+        // WICHTIG: Die AVV-Routen selbst müssen AUSSERHALB der Sperre liegen, 
+        // sonst kann der Admin den Vertrag nie aufrufen, um ihn zu unterzeichnen!
+        Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('/avv', [LegalController::class, 'showAvv'])->name('admin.avv.show');
         Route::post('/avv/accept', [LegalController::class, 'acceptAvv'])->name('admin.avv.accept');
-    });
+        });
 
     }); // Ende 'has.plan'
 
