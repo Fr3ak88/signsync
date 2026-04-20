@@ -28,9 +28,7 @@ class ZeiteintragController extends Controller
                   ->whereMonth('start_zeit', $date->month);
         }
 
-        if ($request->has('is_internal') && $request->is_internal !== '') {
-            $query->where('is_internal', (int) $request->is_internal);
-        }
+        
 
         if ($user->role === 'admin') {
             $query->whereHas('user', function($q) use ($user) {
