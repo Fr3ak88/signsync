@@ -16,7 +16,7 @@ class EmployeeInvitationMail extends Mailable
     public $url;
     public $company;
 
-    public function __construct($name, $url)
+    public function __construct($name, $url, $company)
     {
         $this->name = $name;
         $this->url = $url;
