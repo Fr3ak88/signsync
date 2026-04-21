@@ -14,11 +14,13 @@ class EmployeeInvitationMail extends Mailable
 
     public $name;
     public $url;
+    public $company;
 
     public function __construct($name, $url)
     {
         $this->name = $name;
         $this->url = $url;
+        $this->company = $company;
     }
 
     public function envelope(): Envelope

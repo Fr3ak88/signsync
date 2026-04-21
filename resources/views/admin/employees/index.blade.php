@@ -73,21 +73,29 @@
                                         </form>
                                     @else
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.employees.edit', $employee->id) }}" class="btn btn-sm btn-outline-secondary" title="Bearbeiten">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <form action="{{ route('admin.employees.destroy', $employee->id) }}" method="POST" class="d-inline delete-form">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-sm btn-outline-danger btn-delete-employee"
-                                                    title="Deaktivieren"
-                                                    data-employee-name="{{ $employee->user->name ?? 'Diesen Mitarbeiter' }}">
-                                                    <i class="bi bi-person-x"></i>
-                                                </button>
-                                            </form>
-                                        </div>
+                                        <form action="{{ route('admin.employees.resend', $employee->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-outline-info" title="Einladung erneut senden">
+                                                <i class="bi bi-envelope"></i>
+                                            </button>
+                                        </form>
+
+                                        <a href="{{ route('admin.employees.edit', $employee->id) }}" class="btn btn-sm btn-outline-secondary" title="Bearbeiten">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+
+                                        <form action="{{ route('admin.employees.destroy', $employee->id) }}" method="POST" class="d-inline delete-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-outline-danger btn-delete-employee"
+                                                title="Deaktivieren"
+                                                data-employee-name="{{ $employee->user->name ?? 'Diesen Mitarbeiter' }}">
+                                                <i class="bi bi-person-x"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                     @endif
                                 </td>
                             </tr>

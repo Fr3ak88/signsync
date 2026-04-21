@@ -179,9 +179,28 @@ class EmployeeController extends Controller
             ->with('success', 'Mitarbeiter wurde erfolgreich aktualisiert.');
     }
 
-    /**
-     * Mitarbeiter reaktivieren
-     */
+    public function resendInvitation($id)
+    {
+    $employee = Employee::findOrFail($id);
+    $user = $employee->user;
+
+    if (!$user) {
+        return back()->with('error', 'Benutzerdaten nicht gefunden.');
+    }
+
+    // Falls du ein System mit Aktivierungs-Links hast (z.B. Passwort-Reset)
+    $activationUrl = route('password.request'); // Oder dein spezieller Aktivierungslink
+    
+    $admin = auth()->user();
+    $senderName = !empty($admin->company) ? $admin->company : $admin->name;
+
+    \Mail::to($user->email)->send(
+        new \App\Mail\EmployeeInvitationMail($user->name, $activationUrl, $senderName)
+    );
+
+    return back()->with('success', "Einladung an {$user->name} wurde erneut versendet.");
+    }
+
     public function restore($id)
     {
         $admin = Auth::user();

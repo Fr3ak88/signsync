@@ -98,6 +98,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/employees/{id}', [EmployeeController::class, 'update'])->name('admin.employees.update');
         Route::post('/employees/{id}/restore', [EmployeeController::class, 'restore'])->name('admin.employees.restore');
         Route::delete('/employees/{id}', [EmployeeController::class, 'destroy'])->name('admin.employees.destroy');
+        Route::post('/employees/{id}/resend-invitation', [EmployeeController::class, 'resendInvitation'])->name('admin.employees.resend');
 
         // Positionen
         Route::get('/positions', [PositionController::class, 'index'])->name('admin.positions.index');
