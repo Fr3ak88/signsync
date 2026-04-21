@@ -10,7 +10,7 @@
         
         <h2 style="color: #0d6efd; margin-top: 0;">Hallo {{ $name }},</h2>
         
-        <p>herzlich willkommen bei <strong>SignSync</strong>! Dein Arbeitgeber {{ $company }} hat für dich ein Profil angelegt.</p>
+        <p>herzlich willkommen bei <strong>SignSync</strong>! Dein Arbeitgeber <strong>{{ $company }}</strong> hat für dich ein Profil angelegt.</p>
         
         <p>Damit du dich einloggen und deine Leistungsnachweise digital unterschreiben kannst, musst du dir nur noch ein Passwort vergeben.</p>
         
