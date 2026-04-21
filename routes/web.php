@@ -14,6 +14,7 @@ use App\Http\Controllers\ArbeitsnachweisController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\MollieWebhookController;
 use App\Http\Controllers\Admin\LegalController;
+use App\Http\Controllers\ProfileController;
 
 
 // 1. Landing Page
@@ -81,6 +82,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/worktime/export', [WorktimeController::class, 'exportPdf'])->name('worktime.export');
 
     Route::get('/mein-archiv', [WorktimeController::class, 'archiv'])->name('monatsabschluss.archiv');
+
+    // --- Profil Seite --- 
+    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 
     // --- FIRMEN-ADMIN BEREICH ---
    Route::middleware(['auth', 'avv.accepted'])->prefix('admin')->group(function () {

@@ -77,9 +77,9 @@
             <a href="{{ route('plans.index') }}" class="text-muted me-3">Preise</a>
 
             @auth
-                <span class="text-muted me-3 small">
-                    <i class="bi bi-person-circle me-1"></i> {{ Auth::user()->name }}
-                </span>
+                <a href="{{ route('profile.edit') }}" class="text-muted me-3 small text-decoration-none border-end pe-3">
+                    <i class="bi bi-person-circle me-1 text-primary"></i> <strong>{{ Auth::user()->name }}</strong>
+                </a>
                 
                 <a href="{{ route('logout') }}" 
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
