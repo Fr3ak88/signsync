@@ -11,6 +11,8 @@ Route::post('/login', [AuthController::class, 'login']);
 // Alle Routen hier drin sind nur mit dem Schlüssel (Token) erreichbar
 Route::middleware('auth:sanctum')->group(function () {
     
+    Route::get('/schueler', [SchuelerController::class, 'index']);
+
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
