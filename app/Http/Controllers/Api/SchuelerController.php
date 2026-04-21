@@ -13,12 +13,13 @@ class SchuelerController extends Controller
 {
     $user = $request->user();
 
-    // Wenn Admin: Zeige alle Kinder der Firma
     if ($user->role === 'admin') {
+        // Admin sieht alle Schüler seiner Firma
         $schueler = Schueler::where('admin_id', $user->id)->get();
     } else {
-        // Wenn Mitarbeiter: Zeige nur Kinder, die ihm zugeordnet sind
-        $schueler = Schueler::where('user_id', $user->id)->get();
+        // Mitarbeiter sieht nur Schüler, die ihm zugeordnet sind
+        // Ersetze 'employee_id' durch den echten Namen deiner Spalte (z.B. 'betreuer_id')
+        $schueler = Schueler::where('employee_id', $user->id)->get(); 
     }
 
     return response()->json([
