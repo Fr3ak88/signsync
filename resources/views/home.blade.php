@@ -8,7 +8,7 @@
             <p class="text-muted text-lg">
                 Willkommen zurück, {{ Auth::user()->name }}. 
                 @if(Auth::user()->role === 'admin')
-                    Hier verwalten Sie Ihre Schulbegleitungen und Klienten.
+                    Hier verwalten Sie Ihre Mitarbeiter und Klienten.
                 @else
                     Hier können Sie Ihre Arbeitszeiten erfassen und einsehen.
                 @endif
