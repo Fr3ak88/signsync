@@ -19,11 +19,6 @@ public function mitarbeiter()
     return $this->belongsToMany(User::class, 'schueler_user');
 }
 
-public function zugewieseneSchueler()
-{
-    return $this->belongsToMany(Schueler::class, 'employee_schueler', 'user_id', 'schueler_id');
-}
-
 protected $casts = [
     'name' => 'encrypted',
     'birth_date' => 'date', 

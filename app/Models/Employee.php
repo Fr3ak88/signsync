@@ -28,8 +28,7 @@ class Employee extends Model
      * NEU: Die Beziehung zu den Schülern
      */
     public function schueler()
-{
-    // Falls du die m:n Beziehung (Pivot-Tabelle) nutzt, wie wir sie besprochen hatten:
+    {
     return $this->belongsToMany(Schueler::class, 'employee_schueler', 'employee_id', 'schueler_id');
-}
+    }
 }
