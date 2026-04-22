@@ -11,36 +11,36 @@ class TimeTrackingController extends Controller
 {
     public function store(Request $request)
     {
-        $user = Auth::user();
-        
-        // 1. Validierung der Daten von der App
-        $request->validate([
-            'schueler_id' => 'required|exists:schuelers,id',
-            'start_time'  => 'required|date',
-            'end_time'    => 'required|date|after:start_time',
-            'date'        => 'required|date',
-            'bemerkung'   => 'nullable|string'
-        ]);
+    $user = Auth::user();
+    
+    // 1. Validierung (Namen so wie sie von der App/Postman kommen)
+    $request->validate([
+        'schueler_id' => 'required|exists:schuelers,id',
+        'start_zeit'  => 'required', 
+        'ende_zeit'   => 'required', 
+        'notiz'       => 'nullable|string'
+    ]);
 
-        // 2. Den Mitarbeiter (Employee) finden
-        $employeeId = $user->employeeProfile->id;
+    // 2. Den Mitarbeiter (Employee) finden
+    $employeeId = $user->employeeProfile->id;
 
-        // 3. Den Eintrag in die Datenbank schreiben
-        $entry = Zeiteintrag::create([
-            'employee_id' => $employeeId,
-            'schueler_id' => $request->schueler_id,
-            'admin_id'    => $user->admin_id, // Die Firma zuordnen
-            'date'        => $request->date,
-            'start_time'  => $request->start_time,
-            'end_time'    => $request->end_time,
-            'bemerkung'   => $request->bemerkung,
-            'status'      => 'offen', // Standard-Status
-        ]);
+    // 3. Den Eintrag in die Datenbank schreiben
+    // WICHTIG: Die Keys links müssen EXAKT so heißen wie im $fillable / Datenbank
+    $entry = Zeiteintrag::create([
+        'user_id'       => $user->id,
+        'schueler_id'   => $request->schueler_id,
+        'start_zeit'    => $request->start_zeit, // Korrigiert
+        'ende_zeit'     => $request->ende_zeit,  // Korrigiert
+        'notiz'         => $request->notiz,      // Korrigiert
+        'pause_minuten' => 0,                    // Standardwert aus Fillable
+        'typ'           => 'Arbeitszeit',        // Beispielwert für 'typ'
+        'is_locked'     => false,
+    ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Zeiteintrag erfolgreich gespeichert.',
-            'data'    => $entry
-        ], 201);
+    return response()->json([
+        'success' => true,
+        'message' => 'Zeiteintrag erfolgreich gespeichert.',
+        'data'    => $entry
+    ], 201);
     }
 }

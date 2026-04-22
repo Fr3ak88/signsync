@@ -18,11 +18,11 @@ class Zeiteintrag extends Model
         'schueler_id',
         'start_zeit',
         'ende_zeit',
-        'pause_minuten', // <--- NEU: Für die automatische Pausenberechnung
+        'pause_minuten', 
         'notiz',
         'typ',
-        'is_locked',    // Für GoBD Sperre
-        'content_hash'  // Für Revisions-Check
+        'is_locked',
+        'content_hash' 
     ];
 
     protected $casts = [
