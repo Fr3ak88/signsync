@@ -9,7 +9,7 @@ use Spatie\Activitylog\LogOptions;
 
 class Zeiteintrag extends Model
 {
-    use SoftDeletes, LogsActivity; // GoBD-Grundpfeiler
+    use SoftDeletes, LogsActivity;
 
     protected $table = 'zeiteintraege';
 
@@ -29,7 +29,7 @@ class Zeiteintrag extends Model
         'notiz' => 'encrypted',
         'start_zeit' => 'datetime',
         'ende_zeit' => 'datetime',
-        'pause_minuten' => 'integer', // <--- NEU: Damit immer mit Zahlen gerechnet wird
+        'pause_minuten' => 'integer',
         'is_locked' => 'boolean',
     ];
 
@@ -39,8 +39,8 @@ class Zeiteintrag extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logFillable()        // Protokolliert alle wichtigen Felder inkl. Pause
-            ->logOnlyDirty()       // Speichert nur echte Änderungen
+            ->logFillable()
+            ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }
 
