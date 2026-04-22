@@ -11,60 +11,61 @@ class TimeTrackingController extends Controller
 {
     public function store(Request $request)
     {
-    $user = Auth::user();
-    
-    // 1. Validierung (Namen so wie sie von der App/Postman kommen)
-    $request->validate([
-        'schueler_id' => 'required|exists:schuelers,id',
-        'start_zeit'  => 'required', 
-        'ende_zeit'   => 'required', 
-        'notiz'       => 'nullable|string'
-    ]);
+        $user = Auth::user();
 
-    // 2. Den Mitarbeiter (Employee) finden
-    $employeeId = $user->employeeProfile->id;
-    if (!$user->employeeProfile->schueler->contains($request->schueler_id)) {
-    return response()->json(['message' => 'Nicht berechtigt für diesen Schüler'], 403);
+        // 1. Validierung: 
+        // 'typ' muss dabei sein (arbeit oder leistung)
+        // 'schueler_id' ist nur Pflicht ('required_if'), wenn der Typ 'leistung' ist.
+        $request->validate([
+            'typ'          => 'required|in:arbeit,leistung',
+            'schueler_id'  => 'required_if:typ,leistung|nullable|exists:schuelers,id',
+            'start_zeit'   => 'required|date',
+            'ende_zeit'    => 'required|date|after:start_zeit',
+            'notiz'        => 'nullable|string'
+        ]);
+
+        $employeeId = $user->employeeProfile->id;
+
+        // 2. Sicherheits-Check: Nur bei 'leistung' prüfen, ob der Schüler dem User gehört
+        if ($request->typ === 'leistung') {
+            if (!$user->employeeProfile->schueler->contains($request->schueler_id)) {
+                return response()->json(['message' => 'Nicht berechtigt für diesen Schüler'], 403);
+            }
+        }
+
+        // 3. Den Eintrag in die Datenbank schreiben
+        $entry = Zeiteintrag::create([
+            'user_id'       => $user->id,
+            'employee_id'   => $employeeId,
+            'schueler_id'   => $request->typ === 'leistung' ? $request->schueler_id : null,
+            'start_zeit'    => $request->start_zeit,
+            'ende_zeit'     => $request->ende_zeit,
+            'notiz'         => $request->notiz,
+            'pause_minuten' => 0,
+            'typ'           => $request->typ, // Speichert 'arbeit' oder 'leistung'
+            'is_locked'     => false,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Zeiteintrag (' . $request->typ . ') erfolgreich gespeichert.',
+            'data'    => $entry
+        ], 201);
     }
-    // 3. Den Eintrag in die Datenbank schreiben
-    // WICHTIG: Die Keys links müssen EXAKT so heißen wie im $fillable / Datenbank
-    $entry = Zeiteintrag::create([
-        'user_id'       => $user->id,
-        'employee_id'   => $employeeId,
-        'schueler_id'   => $request->schueler_id,
-        'start_zeit'    => $request->start_zeit, // Korrigiert
-        'ende_zeit'     => $request->ende_zeit,  // Korrigiert
-        'notiz'         => $request->notiz,      // Korrigiert
-        'pause_minuten' => 0,                    // Standardwert aus Fillable
-        'typ'           => 'Arbeitszeit',        // Beispielwert für 'typ'
-        'is_locked'     => false,
-    ]);
 
-    return response()->json([
-        'success' => true,
-        'message' => 'Zeiteintrag erfolgreich gespeichert.',
-        'data'    => $entry
-    ], 201);
-    }
-
-    /**
-     * Zeigt die Historie der Zeiteinträge des Nutzers an.
-     */
     public function index()
     {
-    $user = Auth::user();
+        $user = Auth::user();
 
-    // Wir holen alle Einträge des Nutzers
-    // 'with' lädt die Schülerdaten direkt mit (Eager Loading)
-    $eintraege = Zeiteintrag::with('schueler:id,name') 
-        ->where('user_id', $user->id)
-        ->orderBy('start_zeit', 'desc') // Neueste zuerst
-        ->limit(50) // Optional: Nur die letzten 50 anzeigen
-        ->get();
+        $eintraege = Zeiteintrag::with('schueler:id,name')
+            ->where('user_id', $user->id)
+            ->orderBy('start_zeit', 'desc')
+            ->limit(50)
+            ->get();
 
-    return response()->json([
-        'success' => true,
-        'data'    => $eintraege
-    ]);
+        return response()->json([
+            'success' => true,
+            'data'    => $eintraege
+        ]);
     }
 }
