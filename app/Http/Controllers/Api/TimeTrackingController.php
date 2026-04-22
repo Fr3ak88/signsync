@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Arbeitsnachweis; // Prüfe, ob dein Model so heißt
+use App\Models\Zeiteintrag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
