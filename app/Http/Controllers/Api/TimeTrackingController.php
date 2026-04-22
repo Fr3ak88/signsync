@@ -46,4 +46,25 @@ class TimeTrackingController extends Controller
         'data'    => $entry
     ], 201);
     }
+
+    /**
+     * Zeigt die Historie der Zeiteinträge des Nutzers an.
+     */
+    public function index()
+    {
+    $user = Auth::user();
+
+    // Wir holen alle Einträge des Nutzers
+    // 'with' lädt die Schülerdaten direkt mit (Eager Loading)
+    $eintraege = Zeiteintrag::with('schueler:id,name') 
+        ->where('user_id', $user->id)
+        ->orderBy('start_zeit', 'desc') // Neueste zuerst
+        ->limit(50) // Optional: Nur die letzten 50 anzeigen
+        ->get();
+
+    return response()->json([
+        'success' => true,
+        'data'    => $eintraege
+    ]);
+    }
 }

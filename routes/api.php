@@ -16,4 +16,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Zeiteinträge für die App
     Route::post('/timesheet/store', [App\Http\Controllers\Api\TimeTrackingController::class, 'store']);
+    Route::get('/timesheet', [App\Http\Controllers\Api\TimeTrackingController::class, 'index']);
+
 });
