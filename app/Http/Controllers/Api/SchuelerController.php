@@ -10,21 +10,20 @@ use Illuminate\Support\Facades\Auth;
 class SchuelerController extends Controller
 {
     public function index(Request $request)
-{
+    {
     $user = $request->user();
 
     if ($user->role === 'admin') {
-        // Admin sieht alle Schüler seiner Firma
+        // Der Admin sieht weiterhin alle Schüler seiner Firma
         $schueler = Schueler::where('admin_id', $user->id)->get();
     } else {
-        // Mitarbeiter sieht nur Schüler, die ihm zugeordnet sind
-        // Ersetze 'employee_id' durch den echten Namen deiner Spalte (z.B. 'betreuer_id')
-        $schueler = Schueler::where('employee_id', $user->id)->get(); 
+        // Der Mitarbeiter sieht NUR die Schüler, die in 'employee_schueler' verknüpft sind
+        $schueler = $user->zugewieseneSchueler()->get();
     }
 
     return response()->json([
         'success' => true,
         'data' => $schueler
     ]);
-}
+    }
 }
