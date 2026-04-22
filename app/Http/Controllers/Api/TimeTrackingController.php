@@ -23,11 +23,14 @@ class TimeTrackingController extends Controller
 
     // 2. Den Mitarbeiter (Employee) finden
     $employeeId = $user->employeeProfile->id;
-
+    if (!$user->employeeProfile->schueler->contains($request->schueler_id)) {
+    return response()->json(['message' => 'Nicht berechtigt für diesen Schüler'], 403);
+    }
     // 3. Den Eintrag in die Datenbank schreiben
     // WICHTIG: Die Keys links müssen EXAKT so heißen wie im $fillable / Datenbank
     $entry = Zeiteintrag::create([
         'user_id'       => $user->id,
+        'employee_id'   => $employeeId,
         'schueler_id'   => $request->schueler_id,
         'start_zeit'    => $request->start_zeit, // Korrigiert
         'ende_zeit'     => $request->ende_zeit,  // Korrigiert
