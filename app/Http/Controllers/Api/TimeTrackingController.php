@@ -26,7 +26,7 @@ class TimeTrackingController extends Controller
         $employeeId = $user->employeeProfile->id;
 
         // 3. Den Eintrag in die Datenbank schreiben
-        $entry = Arbeitsnachweis::create([
+        $entry = Zeiteintrag::create([
             'employee_id' => $employeeId,
             'schueler_id' => $request->schueler_id,
             'admin_id'    => $user->admin_id, // Die Firma zuordnen
