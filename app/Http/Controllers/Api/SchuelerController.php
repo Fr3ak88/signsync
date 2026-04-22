@@ -14,11 +14,18 @@ class SchuelerController extends Controller
     $user = $request->user();
 
     if ($user->role === 'admin') {
-        // Der Admin sieht weiterhin alle Schüler seiner Firma
-        $schueler = Schueler::where('admin_id', $user->id)->get();
+        // Admin sieht alle Schüler, die er angelegt hat
+        $schueler = \App\Models\Schueler::where('admin_id', $user->id)->get();
     } else {
-        // Der Mitarbeiter sieht NUR die Schüler, die in 'employee_schueler' verknüpft sind
-        $schueler = $user->zugewieseneSchueler()->get();
+        // Mitarbeiter: Wir gehen über das Profil zur Pivot-Tabelle
+        // Eager Loading (.schueler) verhindert viele einzelne DB-Abfragen
+        $userWithData = \App\Models\User::with('employeeProfile.schueler')->find($user->id);
+
+        if ($userWithData->employeeProfile) {
+            $schueler = $userWithData->employeeProfile->schueler;
+        } else {
+            $schueler = collect(); // Falls kein Profil existiert, leere Liste
+        }
     }
 
     return response()->json([

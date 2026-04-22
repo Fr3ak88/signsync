@@ -73,6 +73,12 @@ class User extends Authenticatable
         return $this->hasMany(User::class, 'admin_id');
     }
 
+    public function employeeProfile()
+    {
+    // Verknüpft den User mit der Tabelle 'employees'
+    return $this->hasOne(Employee::class, 'user_id');
+    }
+
     public function positions()
     {
         return $this->hasMany(Position::class, 'admin_id');
