@@ -165,6 +165,33 @@ class TimeTrackingController extends Controller
         'details_nach_datum' => $history
     ]);
     }
+
+    /**
+     * Einen Zeiteintrag löschen.
+     */
+    public function destroy($id)
+    {
+    $user = Auth::user();
+
+    // 1. Eintrag suchen (Sicherstellen, dass er dem User gehört)
+    $entry = Zeiteintrag::where('user_id', $user->id)->findOrFail($id);
+
+    // 2. Sperr-Prüfung (Wichtig!)
+    if ($entry->is_locked) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Gesperrte Einträge können nicht gelöscht werden. Bitte kontaktieren Sie Ihren Admin für ein Storno.'
+        ], 403);
+    }
+
+    // 3. Löschen
+    $entry->delete();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Eintrag wurde erfolgreich gelöscht.'
+    ]);
+    }
     
     public function index()
     {

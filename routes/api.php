@@ -19,5 +19,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/timesheet', [App\Http\Controllers\Api\TimeTrackingController::class, 'index']);
     Route::put('/timesheet/{id}', [App\Http\Controllers\Api\TimeTrackingController::class, 'update']);
     Route::get('/timesheet/stats', [App\Http\Controllers\Api\TimeTrackingController::class, 'stats']);
+    Route::delete('/timesheet/{id}', [App\Http\Controllers\Api\TimeTrackingController::class, 'destroy']);
 
 });
