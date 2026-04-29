@@ -7,6 +7,7 @@ use App\Models\Zeiteintrag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class TimeTrackingController extends Controller
 {
@@ -107,43 +108,61 @@ class TimeTrackingController extends Controller
     /**
      * Liefert Statistiken für den aktuellen Monat.
      */
-    public function stats()
+    public function stats(Request $request)
     {
     $user = Auth::user();
     
-    // Aktueller Monat
-    $startOfMonth = Carbon::now()->startOfMonth();
-    $endOfMonth = Carbon::now()->endOfMonth();
+    // Monat bestimmen (Standard: aktueller Monat, oder via Request steuerbar)
+    $month = $request->query('month', Carbon::now()->month);
+    $year = $request->query('year', Carbon::now()->year);
 
-    // Alle Einträge des Users für diesen Monat holen
-    $eintraege = Zeiteintrag::where('user_id', $user->id)
-        ->whereBetween('start_zeit', [$startOfMonth, $endOfMonth])
+    $eintraege = Zeiteintrag::with('schueler:id,name')
+        ->where('user_id', $user->id)
+        ->whereMonth('start_zeit', $month)
+        ->whereYear('start_zeit', $year)
+        ->orderBy('start_zeit', 'asc') // Nach Datum sortiert
         ->get();
 
-    $gesamtMinuten = 0;
+    // Summen-Variablen
+    $totalLeistung = 0;
+    $totalArbeit = 0;
 
-    foreach ($eintraege as $eintrag) {
-        // Differenz in Minuten berechnen
-        $dauer = $eintrag->start_zeit->diffInMinutes($eintrag->ende_zeit);
-        
-        // Pause abziehen
-        $netto = $dauer - ($eintrag->pause_minuten ?? 0);
-        
-        $gesamtMinuten += $netto;
-    }
+    // Gruppierung nach Datum für die App-Ansicht
+    $history = $eintraege->groupBy(function($item) {
+        return $item->start_zeit->format('Y-m-d');
+    })->map(function($dayGroup) use (&$totalLeistung, &$totalArbeit) {
+        return $dayGroup->map(function($eintrag) use (&$totalLeistung, &$totalArbeit) {
+            // Dauer berechnen
+            $minuten = $eintrag->start_zeit->diffInMinutes($eintrag->ende_zeit) - ($eintrag->pause_minuten ?? 0);
+            
+            // Zu Gesamtsummen hinzufügen
+            if ($eintrag->typ === 'leistung') {
+                $totalLeistung += $minuten;
+            } else {
+                $totalArbeit += $minuten;
+            }
 
-    // Umrechnen in Stunden und Minuten für die Anzeige
-    $stunden = floor($gesamtMinuten / 60);
-    $minuten = $gesamtMinuten % 60;
+            return [
+                'id' => $eintrag->id,
+                'typ' => $eintrag->typ,
+                'von' => $eintrag->start_zeit->format('H:i'),
+                'bis' => $eintrag->ende_zeit->format('H:i'),
+                'dauer_minuten' => $minuten,
+                'schueler' => $eintrag->schueler ? $eintrag->schueler->name : null,
+                'notiz' => $eintrag->notiz
+            ];
+        });
+    });
 
     return response()->json([
         'success' => true,
-        'data' => [
-            'monat' => Carbon::now()->translatedFormat('F Y'),
-            'gesamt_minuten' => $gesamtMinuten,
-            'formatiert' => "{$stunden}h {$minuten}m",
-            'anzahl_eintraege' => $eintraege->count()
-        ]
+        'meta' => [
+            'zeitraum' => Carbon::create($year, $month)->translatedFormat('F Y'),
+            'gesamt_stunden' => round(($totalLeistung + $totalArbeit) / 60, 2),
+            'davon_leistung_stunden' => round($totalLeistung / 60, 2),
+            'davon_arbeit_stunden' => round($totalArbeit / 60, 2),
+        ],
+        'details_nach_datum' => $history
     ]);
     }
     
