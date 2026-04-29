@@ -53,6 +53,56 @@ class TimeTrackingController extends Controller
         ], 201);
     }
 
+    /**
+     * Einen bestehenden Zeiteintrag aktualisieren.
+     */
+    public function update(Request $request, $id)
+    {
+    $user = Auth::user();
+
+    // 1. Den Eintrag finden und sicherstellen, dass er dem User gehört
+    $entry = Zeiteintrag::where('user_id', $user->id)->findOrFail($id);
+
+    // 2. Prüfen, ob der Eintrag bereits gesperrt ist
+    if ($entry->is_locked) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Dieser Eintrag ist gesperrt und kann nicht mehr geändert werden.'
+        ], 403);
+    }
+
+    // 3. Validierung (ähnlich wie beim Speichern)
+    $request->validate([
+        'typ'          => 'required|in:arbeit,leistung',
+        'schueler_id'  => 'required_if:typ,leistung|nullable|exists:schuelers,id',
+        'start_zeit'   => 'required|date',
+        'ende_zeit'    => 'required|date|after:start_zeit',
+        'notiz'        => 'nullable|string'
+    ]);
+
+    // 4. Sicherheits-Check für Schüler-Berechtigung (nur bei leistung)
+    if ($request->typ === 'leistung') {
+        if (!$user->employeeProfile->schueler->contains($request->schueler_id)) {
+            return response()->json(['message' => 'Nicht berechtigt für diesen Schüler'], 403);
+        }
+    }
+
+    // 5. Daten aktualisieren
+    $entry->update([
+        'schueler_id'   => $request->typ === 'leistung' ? $request->schueler_id : null,
+        'start_zeit'    => $request->start_zeit,
+        'ende_zeit'     => $request->ende_zeit,
+        'notiz'         => $request->notiz,
+        'typ'           => $request->typ,
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Eintrag erfolgreich aktualisiert.',
+        'data'    => $entry
+    ]);
+    }
+
     public function index()
     {
         $user = Auth::user();
