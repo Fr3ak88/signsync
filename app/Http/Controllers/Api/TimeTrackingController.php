@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Zeiteintrag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class TimeTrackingController extends Controller
 {
@@ -103,6 +104,49 @@ class TimeTrackingController extends Controller
     ]);
     }
 
+    /**
+     * Liefert Statistiken für den aktuellen Monat.
+     */
+    public function stats()
+    {
+    $user = Auth::user();
+    
+    // Aktueller Monat
+    $startOfMonth = Carbon::now()->startOfMonth();
+    $endOfMonth = Carbon::now()->endOfMonth();
+
+    // Alle Einträge des Users für diesen Monat holen
+    $eintraege = Zeiteintrag::where('user_id', $user->id)
+        ->whereBetween('start_zeit', [$startOfMonth, $endOfMonth])
+        ->get();
+
+    $gesamtMinuten = 0;
+
+    foreach ($eintraege as $eintrag) {
+        // Differenz in Minuten berechnen
+        $dauer = $eintrag->start_zeit->diffInMinutes($eintrag->ende_zeit);
+        
+        // Pause abziehen
+        $netto = $dauer - ($eintrag->pause_minuten ?? 0);
+        
+        $gesamtMinuten += $netto;
+    }
+
+    // Umrechnen in Stunden und Minuten für die Anzeige
+    $stunden = floor($gesamtMinuten / 60);
+    $minuten = $gesamtMinuten % 60;
+
+    return response()->json([
+        'success' => true,
+        'data' => [
+            'monat' => Carbon::now()->translatedFormat('F Y'),
+            'gesamt_minuten' => $gesamtMinuten,
+            'formatiert' => "{$stunden}h {$minuten}m",
+            'anzahl_eintraege' => $eintraege->count()
+        ]
+    ]);
+    }
+    
     public function index()
     {
         $user = Auth::user();
