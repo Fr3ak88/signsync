@@ -23,6 +23,24 @@ class LoginController extends Controller
         return '/dashboard';
     }
 
+    protected function authenticated($request, $user)
+    {
+    // Wenn die Anfrage JSON erwartet (wie von unserer Flutter App)
+    if ($request->wantsJson()) {
+        return response()->json([
+            'token' => $user->createToken('mobile_app')->plainTextToken,
+            'user' => [
+                'name' => $user->name,
+                // Hier wird der Firmenname aus der Relation geladen
+                'company_name' => $user->company ? $user->company->name : 'SignSync',
+            ]
+        ]);
+    }
+
+    // Standard-Verhalten für Web-Browser bleibt gleich
+    return redirect()->intended($this->redirectPath());
+    }
+
     /**
      * Create a new controller instance.
      *
