@@ -44,6 +44,16 @@ class AuthController extends Controller
 
     $token = $user->createToken($request->device_name)->plainTextToken;
 
+    // AuthController.php
+        $schuelerEintrag = $user->schueler()->first();
+
+        // Das schreibt die Info in storage/logs/laravel.log
+        \Log::info('Schueler Suche:', [
+            'user_id' => $user->id,
+            'gefunden' => $schuelerEintrag ? 'JA' : 'NEIN',
+            'roher_name' => $schuelerEintrag ? $schuelerEintrag->getRawOriginal('name') : 'n/a'
+        ]);
+
     return response()->json([
         'token' => $token,
         'user' => [
