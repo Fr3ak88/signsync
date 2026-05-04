@@ -61,8 +61,6 @@ class User extends Authenticatable
 
     public function schueler()
 {
-    // Dies setzt voraus, dass du eine Pivot-Tabelle 'employee_schueler' 
-    // oder 'schueler_user' hast. 
     return $this->belongsToMany(Schueler::class, 'employee_schueler', 'employee_id', 'schueler_id');
 }
 
