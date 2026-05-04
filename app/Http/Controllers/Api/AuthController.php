@@ -36,6 +36,7 @@ class AuthController extends Controller
                 'role' => $user->role,
                 'company_name' => $user->company_name,
                 'schueler_id' => $user->schueler_id,
+                'schueler_name' => $user->schueler->name ?? 'Kein Schüler zugeordnet',
             ]
         ]);
     }
