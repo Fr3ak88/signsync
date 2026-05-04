@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\EmployeeProfile;
+use App\Models\Schueler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -12,44 +14,47 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     public function login(Request $request)
-{
-    // 1. Validierung
+    {
     $request->validate([
         'email' => 'required|email',
         'password' => 'required',
         'device_name' => 'required',
     ]);
 
-    // 2. User suchen (mit Eager Loading für das Profil und die Schüler)
-    $user = \App\Models\User::with('employeeProfile.schueler')->where('email', $request->email)->first();
+    // User suchen
+    $user = \App\Models\User::where('email', $request->email)->first();
 
-    // 3. Existenz & Passwort prüfen
     if (!$user || !\Hash::check($request->password, $user->password)) {
         return response()->json(['message' => 'Login fehlgeschlagen.'], 401);
     }
 
-    // 4. Schüler-Daten über das Profil abrufen (wie im SchuelerController)
     $schuelerName = 'Kein Schüler zugewiesen';
     $schuelerId = null;
 
-    // Wir prüfen den Pfad: User -> employeeProfile -> schueler
-    if ($user->employeeProfile && $user->employeeProfile->schueler->isNotEmpty()) {
-        $relation = $user->employeeProfile->schueler->first();
-        $schuelerId = $relation->id;
-
-        try {
-            // Versuch der Entschlüsselung
-            $schuelerName = decrypt($relation->name);
-        } catch (\Exception $e) {
-            // Falls der Name bereits Klartext ist oder die Entschlüsselung scheitert
-            $schuelerName = $relation->name;
+    // Wir laden das Profil manuell nach, um Fehler zu vermeiden
+    try {
+        if (method_exists($user, 'employeeProfile')) {
+            $profile = $user->employeeProfile()->first();
+            
+            if ($profile && method_exists($profile, 'schueler')) {
+                $schueler = $profile->schueler()->first();
+                if ($schueler) {
+                    $schuelerId = $schueler->id;
+                    try {
+                        $schuelerName = decrypt($schueler->name);
+                    } catch (\Exception $e) {
+                        $schuelerName = $schueler->name;
+                    }
+                }
+            }
         }
+    } catch (\Exception $e) {
+        // Falls hier etwas schiefgeht, loggen wir den Fehler, aber lassen den Login durch
+        \Log::error("Fehler beim Laden des Schuelers: " . $e->getMessage());
     }
 
-    // 5. Token erstellen
     $token = $user->createToken($request->device_name)->plainTextToken;
 
-    // 6. Antwort senden
     return response()->json([
         'token' => $token,
         'user' => [
@@ -61,5 +66,5 @@ class AuthController extends Controller
             'schueler_name' => $schuelerName,
         ]
     ]);
-}
+    }
 }
