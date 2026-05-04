@@ -34,6 +34,8 @@ class AuthController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'role' => $user->role,
+                'company_name' => $user->company_name,
+                'schueler_id' => $user->schueler_id,
             ]
         ]);
     }
