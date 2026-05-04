@@ -20,38 +20,30 @@ class AuthController extends Controller
         'device_name' => 'required',
     ]);
 
-    // 2. User suchen
-    $user = \App\Models\User::where('email', $request->email)->first();
+    // 2. User suchen (mit Eager Loading für das Profil und die Schüler)
+    $user = \App\Models\User::with('employeeProfile.schueler')->where('email', $request->email)->first();
 
-    // 3. Existenz & Passwort prüfen (Verhindert "on null" Fehler)
+    // 3. Existenz & Passwort prüfen
     if (!$user || !\Hash::check($request->password, $user->password)) {
         return response()->json(['message' => 'Login fehlgeschlagen.'], 401);
     }
 
-    // 4. Schüler-Beziehung sicher abrufen
+    // 4. Schüler-Daten über das Profil abrufen (wie im SchuelerController)
     $schuelerName = 'Kein Schüler zugewiesen';
     $schuelerId = null;
 
-    try {
-        // Prüfen, ob die Beziehung im Model definiert ist und Daten liefert
-        if (method_exists($user, 'schueler')) {
-            $relation = $user->schueler()->first();
-            
-            if ($relation) {
-                $schuelerId = $relation->id;
-                // Hier versuchen wir zu entschlüsseln
-                try {
-                    $schuelerName = decrypt($relation->name);
-                } catch (\Exception $e) {
-                    // Falls Entschlüsselung fehlschlägt, nimm den rohen Wert
-                    $schuelerName = "Verschlüsselungsfehler / " . substr($relation->name, 0, 10) . "...";
-                }
-            }
-        } else {
-            $schuelerName = "Fehler: Beziehung 'schueler' nicht im User-Model definiert";
+    // Wir prüfen den Pfad: User -> employeeProfile -> schueler
+    if ($user->employeeProfile && $user->employeeProfile->schueler->isNotEmpty()) {
+        $relation = $user->employeeProfile->schueler->first();
+        $schuelerId = $relation->id;
+
+        try {
+            // Versuch der Entschlüsselung
+            $schuelerName = decrypt($relation->name);
+        } catch (\Exception $e) {
+            // Falls der Name bereits Klartext ist oder die Entschlüsselung scheitert
+            $schuelerName = $relation->name;
         }
-    } catch (\Exception $e) {
-        $schuelerName = "Allgemeiner Fehler beim Laden des Schülers";
     }
 
     // 5. Token erstellen
