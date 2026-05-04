@@ -25,7 +25,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Die Zugangsdaten sind falsch.'], 401);
         }
 
-        $zugewiesenerSchueler = $user->schueler()->first();
+        $schuelerInfo = $user->schueler()->first();
 
         // Wir erstellen den Token (den Schlüssel)
         $token = $user->createToken($request->device_name)->plainTextToken;
@@ -37,8 +37,8 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'role' => $user->role,
                 'company_name' => $user->company_name,
-                'schueler_id' => $zugewiesenerSchueler ? $zugewiesenerSchueler->id : null,
-                'schueler_name' => $zugewiesenerSchueler ? $zugewiesenerSchueler->name : 'Kein Schüler zugewiesen',
+                'schueler_id' => $schuelerInfo ? $schuelerInfo->id : null,
+                'schueler_name' => $schuelerInfo ? $schuelerInfo->name : 'Kein Schüler gefunden',
             ]
         ]);
     }

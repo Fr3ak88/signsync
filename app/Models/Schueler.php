@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schueler extends Model
 {
-    // Falls deine Tabelle "schuelers" heißt (wie wir in db:show gesehen haben):
     protected $fillable = [
     'name', 
     'admin_id', 
