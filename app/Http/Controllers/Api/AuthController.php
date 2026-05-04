@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\EmployeeProfile;
+use App\Models\Employee;
 use App\Models\Schueler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -33,8 +33,8 @@ class AuthController extends Controller
 
     // Wir laden das Profil manuell nach, um Fehler zu vermeiden
     try {
-        if (method_exists($user, 'employeeProfile')) {
-            $profile = $user->employeeProfile()->first();
+        if (method_exists($user, 'Employee')) {
+            $profile = $user->Employee()->first();
             
             if ($profile && method_exists($profile, 'schueler')) {
                 $schueler = $profile->schueler()->first();
