@@ -13,56 +13,60 @@ class AuthController extends Controller
 {
     public function login(Request $request)
 {
+    // 1. Validierung
     $request->validate([
         'email' => 'required|email',
         'password' => 'required',
-        'device_name' => 'required', 
+        'device_name' => 'required',
     ]);
 
-    // 1. User suchen
-    $user = User::where('email', $request->email)->first();
+    // 2. User suchen
+    $user = \App\Models\User::where('email', $request->email)->first();
 
-    // 2. WICHTIG: Erst prüfen, ob der User ÜBERHAUPT existiert
-    if (! $user || ! Hash::check($request->password, $user->password)) {
-        return response()->json(['message' => 'Die Zugangsdaten sind falsch.'], 401);
+    // 3. Existenz & Passwort prüfen (Verhindert "on null" Fehler)
+    if (!$user || !\Hash::check($request->password, $user->password)) {
+        return response()->json(['message' => 'Login fehlgeschlagen.'], 401);
     }
 
-    // 3. Erst wenn wir sicher sind, dass $user NICHT null ist, die Beziehung laden
-    // Wir nutzen try-catch, falls die Verschlüsselung im Schueler-Model knallt
-    $klartextName = 'Kein Schüler zugewiesen';
-    $schuelerEintrag = $user->schueler()->first();
+    // 4. Schüler-Beziehung sicher abrufen
+    $schuelerName = 'Kein Schüler zugewiesen';
+    $schuelerId = null;
 
-    if ($schuelerEintrag) {
-        try {
-            // Falls du den Cast "encrypted" im Model hast, reicht: $schuelerEintrag->name
-            // Falls nicht, nutzen wir hier decrypt() manuell:
-            $klartextName = decrypt($schuelerEintrag->name);
-        } catch (\Exception $e) {
-            $klartextName = 'Name konnte nicht entschlüsselt werden';
+    try {
+        // Prüfen, ob die Beziehung im Model definiert ist und Daten liefert
+        if (method_exists($user, 'schueler')) {
+            $relation = $user->schueler()->first();
+            
+            if ($relation) {
+                $schuelerId = $relation->id;
+                // Hier versuchen wir zu entschlüsseln
+                try {
+                    $schuelerName = decrypt($relation->name);
+                } catch (\Exception $e) {
+                    // Falls Entschlüsselung fehlschlägt, nimm den rohen Wert
+                    $schuelerName = "Verschlüsselungsfehler / " . substr($relation->name, 0, 10) . "...";
+                }
+            }
+        } else {
+            $schuelerName = "Fehler: Beziehung 'schueler' nicht im User-Model definiert";
         }
+    } catch (\Exception $e) {
+        $schuelerName = "Allgemeiner Fehler beim Laden des Schülers";
     }
 
+    // 5. Token erstellen
     $token = $user->createToken($request->device_name)->plainTextToken;
 
-    // AuthController.php
-        $schuelerEintrag = $user->schueler()->first();
-
-        // Das schreibt die Info in storage/logs/laravel.log
-        \Log::info('Schueler Suche:', [
-            'user_id' => $user->id,
-            'gefunden' => $schuelerEintrag ? 'JA' : 'NEIN',
-            'roher_name' => $schuelerEintrag ? $schuelerEintrag->getRawOriginal('name') : 'n/a'
-        ]);
-
+    // 6. Antwort senden
     return response()->json([
         'token' => $token,
         'user' => [
             'id' => $user->id,
             'name' => $user->name,
             'role' => $user->role,
-            'company_name' => $user->company_name,
-            'schueler_id' => $schuelerEintrag ? $schuelerEintrag->id : null,
-            'schueler_name' => $klartextName,
+            'company_name' => $user->company_name ?? 'Firma nicht gesetzt',
+            'schueler_id' => $schuelerId,
+            'schueler_name' => $schuelerName,
         ]
     ]);
 }
