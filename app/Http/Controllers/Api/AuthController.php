@@ -35,8 +35,8 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'role' => $user->role,
                 'company_name' => $user->company_name,
-                'schueler_id' => $user->schueler_id,
-                'schueler_name' => $user->schueler->name ?? 'Kein Schüler zugeordnet',
+                'schueler_id' => $zugewiesenerSchueler ? $zugewiesenerSchueler->id : null,
+                'schueler_name' => $zugewiesenerSchueler ? $zugewiesenerSchueler->name : 'Kein Schüler zugewiesen',
             ]
         ]);
     }
