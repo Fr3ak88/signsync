@@ -46,9 +46,8 @@ class AuthController extends Controller
                             // Versuch der Entschlüsselung
                             $schuelerName = decrypt($s->name);
                         } catch (DecryptException $e) {
-                            // Falls Payload ungültig (dein Fehler von 06:40), 
-                            // zeige den rohen Wert oder einen Hinweis, statt abzustürzen
-                            $schuelerName = "Verschlüsselungsfehler (Daten passen nicht zum Key)";
+    $schuelerName = $s->name; // Zeigt den rohen Text aus der DB an
+}
                             
                             // Optional: Falls du den verschlüsselten String sehen willst, nutze:
                             // $schuelerName = $s->name; 
