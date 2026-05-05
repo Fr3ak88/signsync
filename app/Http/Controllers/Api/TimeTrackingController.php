@@ -20,6 +20,7 @@ class TimeTrackingController extends Controller
         // 'schueler_id' ist nur Pflicht ('required_if'), wenn der Typ 'leistung' ist.
         $request->validate([
             'typ'          => 'required|in:arbeit,leistung',
+            'is_internal'  => 'nullable|string',
             'schueler_id'  => 'required_if:typ,leistung|nullable|exists:schuelers,id',
             'start_zeit'   => 'required|date',
             'ende_zeit'    => 'required|date|after:start_zeit',
@@ -46,6 +47,7 @@ class TimeTrackingController extends Controller
             'pause_minuten' => 0,
             'typ'           => $request->typ, // Speichert 'arbeit' oder 'leistung'
             'is_locked'     => false,
+            'is_internal'   => $request->is_internal,
         ]);
 
         return response()->json([
