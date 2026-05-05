@@ -12,7 +12,7 @@ class Employee extends Model
 
     protected $fillable = [
         'user_id',
-        'admin_id', // Wichtig, damit wir wissen, zu welcher Firma der Employee gehört
+        'admin_id',
         'first_name',
         'last_name',
         'email',
