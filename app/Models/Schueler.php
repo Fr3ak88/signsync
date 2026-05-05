@@ -19,7 +19,7 @@ public function mitarbeiter()
 }
 
 protected $casts = [
-    'name' => 'encrypted',
+    // 'name' => 'encrypted',
     'birth_date' => 'date', 
 ];
 
