@@ -25,14 +25,16 @@ protected $casts = [
 
 public function getNameAttribute($value)
 {
+    if (empty($value)) return $value;
+
     try {
-        // Falls das Feld in $casts als 'encrypted' steht, 
-        // versucht Laravel es hier automatisch zu entschlüsseln.
-        return decrypt($value);
+        // Prüfe, ob es wie ein verschlüsselter String aussieht
+        if (str_starts_with($value, 'eyJpdiI')) {
+            return decrypt($value);
+        }
+        return $value; // Falls bereits Klartext
     } catch (\Exception $e) {
-        // Falls die Entschlüsselung fehlschlägt (Payload invalid),
-        // gib den rohen Wert aus der Datenbank zurück.
-        return $value;
+        return $value; // Fallback bei Fehlern
     }
 }
 }
