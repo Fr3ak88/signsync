@@ -33,34 +33,43 @@ class AuthController extends Controller
             $schuelerName = 'Kein Schüler zugewiesen';
             $schuelerId = null;
 
-            // 1. Wir holen den Mitarbeiter-Eintrag (ID 1) über die user_id (ID 3)
-            $employee = \App\Models\Employee::where('user_id', $user->id)->first();
+            try {
+                // 1. Hole den Employee-Datensatz für den eingeloggten User
+                $employee = \App\Models\Employee::where('user_id', $user->id)->first();
 
-            if ($employee) {
-                // 2. Jetzt holen wir den Schüler über die Beziehung, 
-                // die auf die employee_id (1) in der Pivot-Tabelle achtet.
-                $s = $employee->schueler()->first();
-                
-                if ($s) {
-                    $schuelerId = $s->id;
+                if ($employee) {
+                    // 2. Hole den Schüler über die Pivot-Tabelle
+                    // Wir nutzen hier direkt die Beziehung aus dem Employee-Model
+                    $firstSchueler = $employee->schueler()->first();
                     
-                    // 3. Name auslesen (mit Entschlüsselungs-Check)
-                    try {
-                        if (str_starts_with($s->name, 'eyJpdiI6')) {
-                            $schuelerName = decrypt($s->name);
-                        } else {
-                            $schuelerName = $s->name;
+                    if ($firstSchueler) {
+                        $schuelerId = $firstSchueler->id;
+                        
+                        // 3. Name auslesen
+                        $rawName = $firstSchueler->name;
+
+                        // Wir versuchen zu entschlüsseln, falls es scheitert, nehmen wir den Rohwert
+                        try {
+                            // Wir prüfen erst, ob es wie ein verschlüsselter Laravel-String aussieht
+                            if (is_string($rawName) && strlen($rawName) > 100) {
+                                $schuelerName = decrypt($rawName);
+                            } else {
+                                $schuelerName = $rawName;
+                            }
+                        } catch (\Exception $e) {
+                            // Falls Entschlüsselung fehlschlägt (z.B. falscher Key), nimm den Klartext/Rohwert
+                            $schuelerName = $rawName;
                         }
-                    } catch (\Exception $e) {
-                        $schuelerName = $s->name; // Fallback auf Rohdaten
+                    } else {
+                        $schuelerName = "Mitarbeiter gefunden, aber kein Schüler verknüpft";
                     }
                 } else {
-                    // Debug-Meldung, falls die Pivot-Tabelle leer ist
-                    $schuelerName = "Mitarbeiter gefunden (ID: {$employee->id}), aber kein Schüler verknüpft.";
+                    $schuelerName = "Kein Mitarbeiter-Profil für User " . $user->id;
                 }
-            } else {
-                // Debug-Meldung, falls der User kein Mitarbeiter-Profil hat
-                $schuelerName = "Kein Mitarbeiter-Profil für User-ID {$user->id}";
+            } catch (\Throwable $e) {
+                // Dieser Catch sorgt dafür, dass der Login NIEMALS mit 500 abbricht
+                \Log::error("Schüler-Abfrage Fehler: " . $e->getMessage());
+                $schuelerName = "Fehler beim Laden";
             }
 
             // 4. Token erstellen
