@@ -49,16 +49,28 @@ class AuthController extends Controller
             // 4. Token erstellen
             $token = $user->createToken($request->device_name)->plainTextToken;
 
-            $companyName = 'SignSync'; // Standard-Fallback
+            // --- FIRMENNAME SICHER LADEN ---
+            $companyName = 'SignSync'; // Standardwert
 
-            if ($user->employeeProfile) {
-                // Wir suchen den Admin/Arbeitgeber, dem dieser Mitarbeiter zugeordnet ist
-                // Ich nehme an, die Spalte in 'employees' heißt 'admin_id'
-                $admin = \App\Models\User::find($user->employeeProfile->admin_id);
-                
-                if ($admin && $admin->company_name) {
-                    $companyName = $admin->company_name;
+            try {
+                // 1. Prüfen, ob der User ein Employee-Profil hat
+                if ($user->employeeProfile) {
+                    
+                    // 2. Wir versuchen den Admin über die admin_id im Profil zu finden
+                    // WICHTIG: Prüfe in deiner DB, ob die Spalte in 'employees' wirklich 'admin_id' heißt!
+                    $adminId = $user->employeeProfile->admin_id;
+                    
+                    if ($adminId) {
+                        $admin = \App\Models\User::find($adminId);
+                        if ($admin) {
+                            // 3. Firmennamen vom Admin nehmen (oder dessen Namen, falls company_name leer ist)
+                            $companyName = $admin->company_name ?? $admin->name ?? 'SignSync';
+                        }
+                    }
                 }
+            } catch (\Throwable $e) {
+                // Falls hier was schiefgeht, loggen wir es, aber lassen den Login nicht sterben
+                \Log::error("Firmenname konnte nicht geladen werden: " . $e->getMessage());
             }
 
             // 5. Antwort mit der Liste aller Kinder
