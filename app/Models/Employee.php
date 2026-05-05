@@ -30,7 +30,7 @@ class Employee extends Model
     public function schueler()
     {
     return $this->belongsToMany(
-        \App\Models\Schueler::class, 
+        Schueler::class, 
         'employee_schueler', // Deine Pivot-Tabelle
         'employee_id',       // Die Spalte in der Pivot-Tabelle für den Mitarbeiter
         'schueler_id'        // Die Spalte in der Pivot-Tabelle für den Schüler
