@@ -29,6 +29,11 @@ class Employee extends Model
      */
     public function schueler()
     {
-    return $this->belongsToMany(Schueler::class, 'employee_schueler', 'employee_id', 'schueler_id');
+    return $this->belongsToMany(
+        \App\Models\Schueler::class, 
+        'employee_schueler', // Deine Pivot-Tabelle
+        'employee_id',       // Die Spalte in der Pivot-Tabelle für den Mitarbeiter
+        'schueler_id'        // Die Spalte in der Pivot-Tabelle für den Schüler
+    );
     }
 }
