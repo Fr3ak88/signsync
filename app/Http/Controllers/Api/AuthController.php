@@ -38,7 +38,7 @@ class AuthController extends Controller
                     foreach ($schuelerEintraege as $s) {
                         $kinderListe[] = [
                             'id' => $s->id,
-                            'name' => $s->name, // Das Model entschlüsselt das jetzt automatisch!
+                            'name' => $s->name,
                         ];
                     }
                 }
@@ -56,7 +56,8 @@ class AuthController extends Controller
                     'id' => $user->id,
                     'name' => $user->name,
                     'role' => $user->role,
-                    'kinder' => $kinderListe, // Array statt einzelner ID
+                    'kinder' => $kinderListe,
+                    'company_name' => $user->company_name ?? 'SignSync',
                 ]
             ]);
 
