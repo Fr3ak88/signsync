@@ -46,6 +46,9 @@ class AuthController extends Controller
                 \Log::error("Schüler-Liste konnte nicht geladen werden: " . $e->getMessage());
             }
 
+            // 4. Token erstellen
+            $token = $user->createToken($request->device_name)->plainTextToken;
+
             $companyName = 'SignSync'; // Standard-Fallback
 
             if ($user->employeeProfile) {
@@ -57,10 +60,6 @@ class AuthController extends Controller
                     $companyName = $admin->company_name;
                 }
             }
-
-
-            // 4. Token erstellen
-            $token = $user->createToken($request->device_name)->plainTextToken;
 
             // 5. Antwort mit der Liste aller Kinder
             return response()->json([
