@@ -64,7 +64,7 @@ class AuthController extends Controller
                         $admin = \App\Models\User::find($adminId);
                         if ($admin) {
                             // 3. Firmennamen vom Admin nehmen (oder dessen Namen, falls company_name leer ist)
-                            $companyName = $admin->company_name ?? $admin->name ?? 'SignSync';
+                            $companyName = $admin->company ?? $admin->name ?? 'SignSync';
                         }
                     }
                 }
