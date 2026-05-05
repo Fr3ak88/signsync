@@ -33,27 +33,35 @@ class AuthController extends Controller
             $schuelerName = 'Kein Schüler zugewiesen';
             $schuelerId = null;
 
-            // 3. Sicherer Zugriff auf die Kette: User -> employeeProfile -> schueler
-            if ($user->employeeProfile) {
-                $employee = $user->employeeProfile;
-                
-                if (method_exists($employee, 'schueler')) {
+            try {
+                if ($user->employeeProfile) {
+                    $employee = $user->employeeProfile;
+                    
+                    // Wir holen den ersten Schüler, falls vorhanden
                     $s = $employee->schueler()->first();
                     
                     if ($s) {
                         $schuelerId = $s->id;
-                        try {
-                            // Versuch der Entschlüsselung
-                            $schuelerName = decrypt($s->name);
-                        } catch (DecryptException $e) {
-    $schuelerName = $s->name; // Zeigt den rohen Text aus der DB an
-}
-                            
-                            // Optional: Falls du den verschlüsselten String sehen willst, nutze:
-                            // $schuelerName = $s->name; 
+                        
+                        // Wir prüfen MANUELL, ob der Name verschlüsselt aussieht 
+                        // (Laravel-Verschlüsselungen sind immer lange Strings mit JSON-Inhalt)
+                        if (str_contains($s->name, '{"iv":')) {
+                            try {
+                                $schuelerName = decrypt($s->name);
+                            } catch (\Exception $e) {
+                                $schuelerName = "Verschlüsselungs-Fehler";
+                            }
+                        } else {
+                            // Wenn es kein Verschlüsselungs-Format ist (dein Klartext-Test),
+                            // nehmen wir den Namen einfach direkt.
+                            $schuelerName = $s->name;
                         }
                     }
                 }
+            } catch (\Throwable $e) {
+                // Wenn IRGENDWAS in der Kette oben schiefgeht, loggen wir es nur,
+                // aber wir lassen den Login NICHT sterben!
+                \Log::error("Schüler-Login-Fehler ignoriert: " . $e->getMessage());
             }
 
             // 4. Token erstellen
